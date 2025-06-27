@@ -6,7 +6,7 @@ interface AboutDevicePopupProps {
 
 const AboutDevicePopup = ({ onClose }: AboutDevicePopupProps) => (
   <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/30">
-    <div className="bg-gray-100/10 backdrop-blur-2xl rounded-2xl p-1 max-h-[80dvh] max-w-[40dvw] w-fit flex flex-col items-center animate-fade-in">
+    <div className="bg-gray-100/10 backdrop-blur-[2px] rounded-2xl p-1 max-h-[85dvh] max-w-[40dvw] w-fit flex flex-col items-center animate-fade-in">
       <div className="w-full rounded-2xl overflow-hidden">
         <Image
           src="/homePage.png"

@@ -9,8 +9,13 @@ import {
 import Image from "next/image";
 import AboutDevicePopup from "./AboutDevicePopup";
 
+interface StatusBarProps {
+  application: string;
+}
+
 const leftMenu = [
   { key: "logo", type: "logo" },
+  { key: "finder", label: "Finder" },
   { key: "file", label: "File" },
   { key: "edit", label: "Edit" },
   { key: "view", label: "View" },
@@ -114,11 +119,10 @@ const logoPopupConfig = {
   ],
 };
 
-const StatusBar = () => {
+const StatusBar = ({ application }: StatusBarProps) => {
   const [dateTime, setDateTime] = useState(getTimeString());
   const [battery, setBattery] = useState<number | null>(null);
   const [charging, setCharging] = useState<boolean>(false);
-  const [fileLabel, setFileLabel] = useState("File");
   const [logoPopupOpen, setLogoPopupOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
 
@@ -171,7 +175,8 @@ const StatusBar = () => {
 
   return (
     <TooltipProvider>
-      <div className="w-full flex items-center justify-between px-4 py-1 bg-black/60 backdrop-blur-md text-gray-100 text-sm fixed top-0 left-0 z-50 select-none">
+      <div className="w-full flex items-center justify-between px-4 py-1 bg-black/60 backdrop-blur-[2px] text-gray-100 text-sm fixed top-0 left-0 z-50 select-none">
+        {/* Left Menu */}
         <ul className="flex gap-5 relative">
           {leftMenu.map((item, idx) => {
             if (item.type === "logo") {
@@ -184,14 +189,14 @@ const StatusBar = () => {
                     <Image
                       src="/logo.png"
                       alt="Logo"
-                      width={28}
-                      height={28}
+                      width={18}
+                      height={18}
                       className="rounded"
                     />
                   </span>
                   {logoPopupOpen && (
                     <div
-                      className="absolute mt-3 z-50 bg-gray-100/10 border border-gray-200/10 backdrop-blur-2xl rounded-xl p-1 shadow-xl animate-fade-in"
+                      className="absolute mt-3 z-50 bg-gray-100/10 border border-gray-200/10 backdrop-blur-[2px] rounded-xl p-1 shadow-xl animate-fade-in"
                       style={{ top: "100%" }}
                     >
                       {/* Part One: System details */}
@@ -235,13 +240,25 @@ const StatusBar = () => {
                 </li>
               );
             }
+            if (item.key === "finder") {
+              return (
+                <li
+                  key={item.key}
+                  className="hover:opacity-80 cursor-pointer font-semibold text-white"
+                >
+                  {application}
+                </li>
+              );
+            }
             return (
               <li key={item.key} className="hover:opacity-80 cursor-pointer">
-                {item.key === "file" ? fileLabel : item.label}
+                {item.label}
               </li>
             );
           })}
         </ul>
+
+        {/* Right Icons */}
         <div className="flex items-center gap-4">
           {rightIcons.map(({ key, icon: Icon, tooltip, className, show }) => {
             if (!Icon) return null;

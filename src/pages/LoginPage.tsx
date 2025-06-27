@@ -114,7 +114,7 @@ const LoginPage = ({ animationDirection = "up" }: LoginPageProps) => {
               <input
                 ref={inputRef}
                 type="password"
-                className="bg-[#d1d1d1] opacity-60 backdrop-blur-xl outline-none p-1 rounded-full pl-3 pr-10 placeholder-gray-500 text-gray-800 w-full"
+                className="bg-[#d1d1d1] opacity-60 backdrop-blur-[2px] outline-none p-1 rounded-full pl-3 pr-10 placeholder-gray-500 text-gray-800 w-full"
                 placeholder="Enter 0941 to login"
                 value={inputValue}
                 onFocus={() => setIsInputActive(true)}
