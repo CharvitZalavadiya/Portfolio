@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import HomePage from "@/components/HomePage";
-import LoginPage from "@/components/LoginPage";
+import HomePage from "@/pages/HomePage";
+import LoginPage from "@/pages/LoginPage";
+import Image from "next/image";
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,8 +35,18 @@ export default function Home() {
   }, []);
 
   return (
-    <>
-      {isLoggedIn ? <HomePage /> : <LoginPage animationDirection={animationDirection} />}
-    </>
+    <div className="relative w-[100dvw] h-[100dvh] overflow-hidden bg-black">
+      <Image
+        src="/homePage.png"
+        alt="Home Background"
+        fill
+        className="object-cover z-0 opacity-80"
+        style={{ pointerEvents: "none", userSelect: "none" }}
+        priority
+      />
+      <div className="relative z-10 w-full h-full flex items-center justify-center">
+        {isLoggedIn ? <HomePage /> : <LoginPage animationDirection={animationDirection} />}
+      </div>
+    </div>
   );
 }
