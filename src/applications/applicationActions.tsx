@@ -6,24 +6,29 @@ const dotColors = [
   { color: "#53C22B", action: "maximize" }, // Green
 ];
 
-export default function ApplicationActions({ app, onMaximize }: { app: string; onMaximize: () => void }) {
+export default function ApplicationActions({ app, onMaximize, onCloseWithAnim, onMinimize }: { app: string; onMaximize: () => void; onCloseWithAnim?: () => void; onMinimize?: () => void }) {
   const handleClick = useCallback(
     (action: string) => {
       if (action === "close") {
-        // Remove app from currentApplication array
-        let arr: string[] = [];
-        try {
-          arr = JSON.parse(localStorage.getItem("currentApplication") || "[]");
-          if (!Array.isArray(arr)) arr = [];
-        } catch {
-          arr = [];
+        if (onCloseWithAnim) {
+          onCloseWithAnim();
+        } else {
+          // Remove app from currentApplication array
+          let arr: string[] = [];
+          try {
+            arr = JSON.parse(localStorage.getItem("currentApplication") || "[]");
+            if (!Array.isArray(arr)) arr = [];
+          } catch {
+            arr = [];
+          }
+          arr = arr.filter((a) => a !== app);
+          localStorage.setItem("currentApplication", JSON.stringify(arr));
+          window.dispatchEvent(new Event("applicationChange"));
         }
-        arr = arr.filter((a) => a !== app);
-        localStorage.setItem("currentApplication", JSON.stringify(arr));
-        window.dispatchEvent(new Event("applicationChange"));
       } else if (action === "maximize") {
         onMaximize();
       } else if (action === "minimize") {
+        if (typeof onMinimize === 'function') onMinimize();
         // Remove from currentApplication, add to minimizedApplication
         let arr: string[] = [];
         let minArr: string[] = [];
@@ -46,7 +51,7 @@ export default function ApplicationActions({ app, onMaximize }: { app: string; o
         window.dispatchEvent(new Event("applicationChange"));
       }
     },
-    [app, onMaximize]
+    [app, onMaximize, onCloseWithAnim, onMinimize]
   );
 
   return (

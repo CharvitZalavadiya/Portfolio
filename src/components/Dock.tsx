@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
 interface DockProps {
   setApplication: (name: string) => void;
+  forceVisible?: boolean;
 }
 
 const applications = [
@@ -33,7 +34,7 @@ const applications = [
   },
 ];
 
-const Dock = ({ setApplication }: DockProps) => {
+const Dock = ({ setApplication, forceVisible }: DockProps) => {
   const [openApps, setOpenApps] = useState<string[]>([]);
   const [minimizedApps, setMinimizedApps] = useState<string[]>([]);
 
@@ -72,14 +73,81 @@ const Dock = ({ setApplication }: DockProps) => {
     };
   }, []);
 
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [mouseX, setMouseX] = useState<number | null>(null);
+  const dockRef = useRef<HTMLDivElement>(null);
+
+  // Enhanced hover: smoothly interpolate hover between icons when in the gap
+  useEffect(() => {
+    if (!dockRef.current) return;
+    const handleMove = (e: MouseEvent) => {
+      const rect = dockRef.current!.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      setMouseX(x);
+      // Find the closest app center
+      let minDist = Infinity;
+      let idx = null;
+      for (let i = 0; i < applications.length; i++) {
+        const center = (i + 0.5) * (rect.width / applications.length);
+        const dist = Math.abs(x - center);
+        if (dist < minDist) {
+          minDist = dist;
+          idx = i;
+        }
+      }
+      setHoveredIdx(idx);
+    };
+    const handleLeave = () => {
+      setHoveredIdx(null);
+      setMouseX(null);
+    };
+    const node = dockRef.current;
+    node.addEventListener('mousemove', handleMove);
+    node.addEventListener('mouseleave', handleLeave);
+    return () => {
+      node.removeEventListener('mousemove', handleMove);
+      node.removeEventListener('mouseleave', handleLeave);
+    };
+  }, []);
+
+  // If forceVisible is true, override transform to show Dock
+  const dockStyle = forceVisible
+    ? { transform: 'translateY(0)', transition: 'transform 0.3s cubic-bezier(0.33,1,0.68,1)' }
+    : undefined;
+
   return (
-    <div className="flex bg-gray-100/10 backdrop-blur-[2px] gap-5 items-end justify-center p-2 rounded-xl">
-      {applications.map((app) => {
+    <div ref={dockRef} className="flex bg-gray-100/10 backdrop-blur-[2px] gap-5 items-end justify-center p-2 rounded-xl" style={dockStyle}>
+      <style jsx>{`
+        .dock-app {
+          transition:
+            transform 0.36s cubic-bezier(0.33,1,0.68,1),
+            box-shadow 0.32s cubic-bezier(0.33,1,0.68,1),
+            filter 0.32s cubic-bezier(0.33,1,0.68,1);
+        }
+        .dock-app.hovered {
+          transform: scale(1.22) translateY(-12px);
+          z-index: 2;
+          filter: drop-shadow(0 4px 12px rgba(0,0,0,0.14));
+        }
+        .dock-app.neighbor {
+          transform: scale(1.09) translateY(-6px);
+          z-index: 1;
+          filter: drop-shadow(0 2px 5px rgba(0,0,0,0.08));
+        }
+        .dock-app:not(.hovered):not(.neighbor) {
+          z-index: 0;
+          filter: none;
+        }
+      `}</style>
+      {applications.map((app, idx) => {
         const isOpen = openApps.includes(app.name) || minimizedApps.includes(app.name);
+        let classNames = "dock-app flex flex-col items-center cursor-pointer";
+        if (hoveredIdx === idx) classNames += " hovered";
+        else if (hoveredIdx !== null && (idx === hoveredIdx - 1 || idx === hoveredIdx + 1)) classNames += " neighbor";
         return (
           <span
             key={app.name}
-            className="flex flex-col items-center cursor-pointer"
+            className={classNames}
             style={{ position: 'relative', minWidth: 48 }}
             onClick={() => {
               setApplication(app.name);
@@ -122,7 +190,7 @@ const Dock = ({ setApplication }: DockProps) => {
               alt={app.label}
               width={48}
               height={48}
-              className="rounded-lg transition-transform hover:scale-110"
+              className="rounded-lg"
             />
             {isOpen && (
               <span

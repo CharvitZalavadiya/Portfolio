@@ -11,6 +11,7 @@ import AboutDevicePopup from "./AboutDevicePopup";
 
 interface StatusBarProps {
   application: string;
+  forceVisible?: boolean;
 }
 
 const leftMenu = [
@@ -119,7 +120,7 @@ const logoPopupConfig = {
   ],
 };
 
-const StatusBar = ({ application }: StatusBarProps) => {
+const StatusBar = ({ application, forceVisible }: StatusBarProps) => {
   const [dateTime, setDateTime] = useState(getTimeString());
   const [battery, setBattery] = useState<number | null>(null);
   const [charging, setCharging] = useState<boolean>(false);
@@ -173,9 +174,16 @@ const StatusBar = ({ application }: StatusBarProps) => {
 
   const handleLogoClick = () => setLogoPopupOpen((v) => !v);
 
+  // If forceVisible is true, override transform to show StatusBar
+  const barStyle = forceVisible
+    ? { transform: 'translateY(0)', transition: 'transform 0.3s cubic-bezier(0.33,1,0.68,1)' }
+    : (typeof window !== 'undefined' && window.__anyMaximized)
+      ? { transform: 'translateY(-100%)', transition: 'transform 0.3s cubic-bezier(0.33,1,0.68,1)' }
+      : { transform: 'translateY(0)', transition: 'transform 0.3s cubic-bezier(0.33,1,0.68,1)' };
+
   return (
     <TooltipProvider>
-      <div className="w-full flex items-center justify-between px-4 py-1 bg-black/60 backdrop-blur-[2px] text-gray-100 text-sm fixed top-0 left-0 z-50 select-none transition-transform duration-300" style={{transform: (typeof window !== 'undefined' && window.__anyMaximized) ? 'translateY(-100%)' : 'translateY(0)'}}>
+      <div className="w-full flex items-center justify-between px-4 py-1 bg-black/60 backdrop-blur-[2px] text-gray-100 text-sm fixed top-0 left-0 z-50 select-none transition-transform duration-300" style={barStyle}>
         {/* Left Menu */}
         <ul className="flex gap-5 relative">
           {leftMenu.map((item, idx) => {
