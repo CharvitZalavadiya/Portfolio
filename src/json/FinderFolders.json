@@ -1,0 +1,15 @@
+{
+  "Favourites": [
+    { "name": "Macintosh HD", "icon": "/folder/macintoshhd.png" },
+    { "name": "Education", "icon": "/folder/education.png" },
+    { "name": "Skills", "icon": "/folder/skills.png" },
+    { "name": "Experience", "icon": "/folder/experience.png" },
+    { "name": "Projects", "icon": "/folder/projects.png" }
+  ],
+  "Tages": [
+    { "name": "Participations", "icon": "/folder/participations.png" },
+    { "name": "Co-Curricular Activites", "icon": "/folder/co-curricular-activites.png" },
+    { "name": "Organizations", "icon": "/folder/organizations.png" },
+    { "name": "Certificates", "icon": "/folder/certificates.png" }
+  ]
+}

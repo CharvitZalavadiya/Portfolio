@@ -9,11 +9,11 @@ declare global {
 }
 
 const appMap: Record<string, any> = {
-  Finder: dynamic(() => import("../applications/Finder"), { ssr: false }),
-  GitHub: dynamic(() => import("../applications/GitHub"), { ssr: false }),
-  LinkedIn: dynamic(() => import("../applications/LinkedIn"), { ssr: false }),
-  Gmail: dynamic(() => import("../applications/Gmail"), { ssr: false }),
-  Safari: dynamic(() => import("../applications/Safari"), { ssr: false }),
+  Finder: dynamic(() => import("./Finder/Finder"), { ssr: false }),
+  GitHub: dynamic(() => import("./GitHub/GitHub"), { ssr: false }),
+  LinkedIn: dynamic(() => import("./LinkedIn/LinkedIn"), { ssr: false }),
+  Gmail: dynamic(() => import("./Gmail/Gmail"), { ssr: false }),
+  Safari: dynamic(() => import("./Safari/Safari"), { ssr: false }),
 };
 
 export default function ApplicationCard({
@@ -163,7 +163,7 @@ export default function ApplicationCard({
           zIndex: computedZ,
         }}
       >
-        <div className="absolute left-3 top-2 z-10">
+        <div className="absolute left-4 top-3 z-10">
           <ApplicationActions
             app={app}
             onMaximize={handleMaximize}

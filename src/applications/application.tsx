@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
 
 const appMap: Record<string, any> = {
-  Finder: dynamic(() => import("./Finder"), { ssr: false }),
-  GitHub: dynamic(() => import("./GitHub"), { ssr: false }),
-  LinkedIn: dynamic(() => import("./LinkedIn"), { ssr: false }),
-  Gmail: dynamic(() => import("./Gmail"), { ssr: false }),
-  Safari: dynamic(() => import("./Safari"), { ssr: false }),
+  Finder: dynamic(() => import("./Finder/Finder"), { ssr: false }),
+  GitHub: dynamic(() => import("./GitHub/GitHub"), { ssr: false }),
+  LinkedIn: dynamic(() => import("./LinkedIn/LinkedIn"), { ssr: false }),
+  Gmail: dynamic(() => import("./Gmail/Gmail"), { ssr: false }),
+  Safari: dynamic(() => import("./Safari/Safari"), { ssr: false }),
 };
 
 // Remove multi-app logic, now just renders the app passed as prop

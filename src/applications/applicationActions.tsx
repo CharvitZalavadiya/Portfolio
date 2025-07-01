@@ -55,7 +55,7 @@ export default function ApplicationActions({ app, onMaximize, onCloseWithAnim, o
   );
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 0, height: 20 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
       {dotColors.map((dot, idx) => (
         <span
           key={idx}

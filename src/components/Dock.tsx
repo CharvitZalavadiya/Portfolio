@@ -198,7 +198,7 @@ const Dock = ({ setApplication, forceVisible }: DockProps) => {
                   position: 'absolute',
                   left: '50%',
                   transform: 'translateX(-50%)',
-                  bottom: -7,
+                  bottom: -5,
                   width: 5,
                   height: 5,
                   borderRadius: '50%',
