@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Wifi, Search, SlidersHorizontal, BatteryIcon } from "lucide-react";
+import { Wifi, Search, SlidersHorizontal, BatteryIcon, BatteryChargingIcon } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -128,47 +128,76 @@ const StatusBar = ({ application, forceVisible }: StatusBarProps) => {
   const [aboutOpen, setAboutOpen] = useState(false);
 
   const rightIcons = [
-    {
-      key: "battery",
-      icon: BatteryIcon,
-      tooltip: `Battery : ${battery}%`,
-      className: "w-5 h-5 text-white",
-      show: (battery: number | null) => battery !== null,
-    },
+    battery !== null
+      ? {
+          key: "battery",
+          icon: charging ? BatteryChargingIcon : BatteryIcon,
+          tooltip: `Battery: ${battery}% ${charging ? "(Charging)" : ""}`,
+          className: "w-5 h-5 text-white",
+          show: () => true,
+          label: `${battery}%`,
+        }
+      : {
+          key: "battery-na",
+          icon: BatteryIcon,
+          tooltip: "Battery info not available in this browser.",
+          className: "w-5 h-5 text-white opacity-50",
+          show: () => true,
+          label: "N/A",
+        },
     {
       key: "wifi",
       icon: Wifi,
       tooltip: "WiFi : Charvit",
       className: "w-5 h-5 text-white",
+      show: () => true,
     },
     {
       key: "search",
       icon: Search,
       tooltip: "Search",
       className: "w-5 h-5 text-white",
+      show: () => true,
     },
     {
       key: "control",
       icon: SlidersHorizontal,
       tooltip: "Control Center",
       className: "w-5 h-5 text-white",
+      show: () => true,
     },
   ];
 
+  // Battery info fetch logic with refresh
+  const fetchBattery = () => {
+    if (navigator.getBattery) {
+      navigator
+        .getBattery()
+        .then((batt) => {
+          setBattery(Math.round(batt.level * 100));
+          setCharging(batt.charging);
+          batt.addEventListener("levelchange", () =>
+            setBattery(Math.round(batt.level * 100))
+          );
+          batt.addEventListener("chargingchange", () =>
+            setCharging(batt.charging)
+          );
+        })
+        .catch(() => {
+          setBattery(null);
+        });
+    } else {
+      // Fallback: battery info not available
+      setBattery(null);
+      if (typeof window !== 'undefined') {
+        console.warn('Battery Status API is not supported in this browser. Try Chrome or Edge on a laptop/mobile.');
+      }
+    }
+  };
+
   useEffect(() => {
     const interval = setInterval(() => setDateTime(getTimeString()), 1000);
-    if (navigator.getBattery) {
-      navigator.getBattery().then((batt) => {
-        setBattery(Math.round(batt.level * 100));
-        setCharging(batt.charging);
-        batt.addEventListener("levelchange", () =>
-          setBattery(Math.round(batt.level * 100))
-        );
-        batt.addEventListener("chargingchange", () =>
-          setCharging(batt.charging)
-        );
-      });
-    }
+    fetchBattery();
     return () => clearInterval(interval);
   }, []);
 
@@ -268,24 +297,42 @@ const StatusBar = ({ application, forceVisible }: StatusBarProps) => {
 
         {/* Right Icons */}
         <div className="flex items-center gap-4">
-          {rightIcons.map(({ key, icon: Icon, tooltip, className, show }) => {
-            if (!Icon) return null;
-            return (
-              <Tooltip key={key}>
-                <TooltipTrigger asChild>
-                  <span>
-                    <Icon className={className} />
-                  </span>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="bottom"
-                  className="bg-gray-300 text-black border border-gray-700"
-                >
-                  {tooltip}
-                </TooltipContent>
-              </Tooltip>
-            );
-          })}
+          {rightIcons.filter(({ show }) => show()).map(({ key, icon: Icon, tooltip, className, label }) => (
+            <Tooltip key={key}>
+              <TooltipTrigger asChild>
+                <span className="flex items-center gap-1">
+                  {(key === "battery" || key === "battery-na") && (
+                    <>
+                      <span className="text-xs ml-1">{label}</span>
+                      {key === "battery-na" && (
+                        <button
+                          onClick={fetchBattery}
+                          title="Retry battery info"
+                          className="ml-1 px-1 py-0.5 rounded bg-gray-700 text-xs text-white hover:bg-gray-600 border border-gray-500"
+                          style={{ fontSize: '10px' }}
+                        >
+                          Refresh
+                        </button>
+                      )}
+                    </>
+                  )}
+                  <Icon className={className} />
+                </span>
+              </TooltipTrigger>
+              <TooltipContent
+                side="bottom"
+                className="bg-gray-300 text-black border border-gray-700"
+              >
+                {tooltip}
+                {key === "battery-na" && (
+                  <div className="mt-1 text-xs text-gray-700 max-w-[200px]">
+                    Battery info is only available in some browsers (Chrome/Edge) and on devices with a battery.<br />
+                    If you are on a supported device and browser, click Refresh.
+                  </div>
+                )}
+              </TooltipContent>
+            </Tooltip>
+          ))}
           <span className="ml-2 min-w-[120px] text-right">{dateTime}</span>
         </div>
       </div>
