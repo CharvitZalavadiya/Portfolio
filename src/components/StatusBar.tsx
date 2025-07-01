@@ -175,7 +175,7 @@ const StatusBar = ({ application }: StatusBarProps) => {
 
   return (
     <TooltipProvider>
-      <div className="w-full flex items-center justify-between px-4 py-1 bg-black/60 backdrop-blur-[2px] text-gray-100 text-sm fixed top-0 left-0 z-50 select-none">
+      <div className="w-full flex items-center justify-between px-4 py-1 bg-black/60 backdrop-blur-[2px] text-gray-100 text-sm fixed top-0 left-0 z-50 select-none transition-transform duration-300" style={{transform: (typeof window !== 'undefined' && window.__anyMaximized) ? 'translateY(-100%)' : 'translateY(0)'}}>
         {/* Left Menu */}
         <ul className="flex gap-5 relative">
           {leftMenu.map((item, idx) => {
