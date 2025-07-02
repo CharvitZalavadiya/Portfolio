@@ -3,6 +3,8 @@
 import Folder from "@/components/Folder";
 import finderFolders from "@/json/FinderFolders.json";
 import FinderSidebar from "./FinderSidebar";
+// Remove static imports for dynamic folder rendering
+// Dynamically import all folder UIs as needed
 import { useState, useRef, useEffect } from "react";
 
 export default function Finder() {
@@ -109,33 +111,51 @@ export default function Finder() {
         </div>
         {/* Folders/content area */}
         <div className="flex-1 p-4 bg-gray-500/20">
-          <div className="flex flex-wrap gap-6">
-            {foldersToShow.map((item: any) => (
-              <div
-                key={item.name}
-                data-folder-name={item.name}
-                style={{ display: "inline-block", height: "100%" }}
-                className={
-                  clickedFolder === item.name
-                    ? "bg-gray-100/10 rounded-lg h-full"
-                    : ""
-                }
-              >
-                <Folder
-                  name={item.name}
-                  coverImage={item.icon}
-                  selected={clickedFolder === item.name}
-                  onSelect={() => {
-                    setClickedFolder(item.name);
-                  }}
-                  onDoubleClick={() => {
-                    setClickedFolder(item.name);
-                    setSelected(item.name);
-                  }}
-                />
+          {(() => {
+            // Map folder names to components
+            // Only render a special component if it is actually imported and available
+            // Dynamically import and render the selected folder component if it exists
+            try {
+              if (selected && selected !== "Macintosh HD") {
+                // Convert folder name to valid import (replace spaces and dashes with nothing)
+                const fileName = selected.replace(/[^a-zA-Z0-9]/g, "");
+                // eslint-disable-next-line @typescript-eslint/no-var-requires
+                const FolderComponent = require(`./${selected}`).default;
+                return <FolderComponent />;
+              }
+            } catch (e) {
+              // If not found, fall back to folder grid
+            }
+            return (
+              <div className="flex flex-wrap gap-6">
+                {foldersToShow.map((item: any) => (
+                  <div
+                    key={item.name}
+                    data-folder-name={item.name}
+                    style={{ display: "inline-block", height: "100%" }}
+                    className={
+                      clickedFolder === item.name
+                        ? "bg-gray-100/10 rounded-lg h-full"
+                        : ""
+                    }
+                  >
+                    <Folder
+                      name={item.name}
+                      coverImage={item.icon}
+                      selected={clickedFolder === item.name}
+                      onSelect={() => {
+                        setClickedFolder(item.name);
+                      }}
+                      onDoubleClick={() => {
+                        setClickedFolder(item.name);
+                        setSelected(item.name);
+                      }}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            );
+          })()}
         </div>
       </div>
     </div>

@@ -1,0 +1,300 @@
+[
+  {
+    "name": { "name": "Backend", "coverImage": "/folder/skills/Backend/backend.png" },
+    "skills": [
+      {
+        "name": "EJS",
+        "image": "/folder/skills/Backend/ejs.png",
+        "link": "https://ejs.co/"
+      },
+      {
+        "name": "Express.js",
+        "image": "/folder/skills/Backend/express-js.png",
+        "link": "https://expressjs.com/"
+      },
+      {
+        "name": "FastAPI",
+        "image": "/folder/skills/Backend/fastapi.png",
+        "link": "https://fastapi.tiangolo.com/"
+      },
+      {
+        "name": "Node.js",
+        "image": "/folder/skills/Backend/node-js.png",
+        "link": "https://nodejs.org/"
+      }
+    ]
+  },
+  {
+    "name": { "name": "Databases", "coverImage": "/folder/skills/Databases/databases.png" },
+    "skills": [
+      {
+        "name": "Firebase",
+        "image": "/folder/skills/Databases/firebase.png",
+        "link": "https://firebase.google.com/"
+      },
+      {
+        "name": "MongoDB",
+        "image": "/folder/skills/Databases/mongo.png",
+        "link": "https://www.mongodb.com/"
+      },
+      {
+        "name": "MySQL",
+        "image": "/folder/skills/Databases/mysql.png",
+        "link": "https://www.mysql.com/"
+      },
+      {
+        "name": "Supabase",
+        "image": "/folder/skills/Databases/supabase.png",
+        "link": "https://supabase.com/"
+      }
+    ]
+  },
+  {
+    "name": { "name": "Deployments", "coverImage": "/folder/skills/Deployments/deployments.png" },
+    "skills": [
+      {
+        "name": "Netlify",
+        "image": "/folder/skills/Deployments/netlify.png",
+        "link": "https://www.netlify.com/"
+      },
+      {
+        "name": "Render",
+        "image": "/folder/skills/Deployments/render.png",
+        "link": "https://render.com/"
+      },
+      {
+        "name": "Vercel",
+        "image": "/folder/skills/Deployments/vercel.png",
+        "link": "https://vercel.com/"
+      }
+    ]
+  },
+  {
+    "name": { "name": "Designing", "coverImage": "/folder/skills/Designing/designing.png" },
+    "skills": [
+      {
+        "name": "Figma",
+        "image": "/folder/skills/Designing/figma.png",
+        "link": "https://www.figma.com/"
+      },
+      {
+        "name": "Webflow",
+        "image": "/folder/skills/Designing/webflow.png",
+        "link": "https://webflow.com/"
+      },
+      {
+        "name": "Wix",
+        "image": "/folder/skills/Designing/wix.png",
+        "link": "https://www.wix.com/"
+      }
+    ]
+  },
+  {
+    "name": { "name": "DevOps", "coverImage": "/folder/skills/DevOps/devops.png" },
+    "skills": [
+      {
+        "name": "AWS",
+        "image": "/folder/skills/DevOps/aws.png",
+        "link": "https://aws.amazon.com/"
+      },
+      {
+        "name": "DigitalOcean",
+        "image": "/folder/skills/DevOps/digitalOcean.png",
+        "link": "https://www.digitalocean.com/"
+      },
+      {
+        "name": "Docker",
+        "image": "/folder/skills/DevOps/docker.png",
+        "link": "https://www.docker.com/"
+      },
+      {
+        "name": "Git",
+        "image": "/folder/skills/DevOps/git.png",
+        "link": "https://git-scm.com/"
+      },
+      {
+        "name": "GitHub",
+        "image": "/folder/skills/DevOps/github.png",
+        "link": "https://github.com/"
+      },
+      {
+        "name": "Grafana",
+        "image": "/folder/skills/DevOps/grafana.png",
+        "link": "https://grafana.com/"
+      },
+      {
+        "name": "Linux",
+        "image": "/folder/skills/DevOps/linux.png",
+        "link": "https://www.linux.org/"
+      }
+    ]
+  },
+  {
+    "name": { "name": "Embedded", "coverImage": "/folder/skills/Embedded/embedded.png" },
+    "skills": [
+      {
+        "name": "ANSYS",
+        "image": "/folder/skills/Embedded/ansys1.png",
+        "link": "https://www.ansys.com/"
+      },
+      {
+        "name": "Arduino",
+        "image": "/folder/skills/Embedded/arduino.png",
+        "link": "https://www.arduino.cc/"
+      },
+      {
+        "name": "ATmega",
+        "image": "/folder/skills/Embedded/atmega.png",
+        "link": "https://www.microchip.com/en-us/products/microcontrollers-and-microprocessors/8-bit-mcus/avr-mcus/atmega-mcus"
+      },
+      {
+        "name": "C",
+        "image": "/folder/skills/Embedded/c.png",
+        "link": "https://en.wikipedia.org/wiki/C_(programming_language)"
+      },
+      {
+        "name": "ESP32",
+        "image": "/folder/skills/Embedded/esp32.png",
+        "link": "https://www.espressif.com/en/products/socs/esp32"
+      }
+    ]
+  },
+  {
+    "name": { "name": "Frontend", "coverImage": "/folder/skills/Frontend/frontend.png" },
+    "skills": [
+      {
+        "name": "Expo",
+        "image": "/folder/skills/Frontend/expo.png",
+        "link": "https://expo.dev/"
+      },
+      {
+        "name": "Framer",
+        "image": "/folder/skills/Frontend/framer.png",
+        "link": "https://www.framer.com/"
+      },
+      {
+        "name": "Next.js",
+        "image": "/folder/skills/Frontend/next.png",
+        "link": "https://nextjs.org/"
+      },
+      {
+        "name": "React",
+        "image": "/folder/skills/Frontend/react.png",
+        "link": "https://react.dev/"
+      },
+      {
+        "name": "Vite",
+        "image": "/folder/skills/Frontend/vite.png",
+        "link": "https://vitejs.dev/"
+      }
+    ]
+  },
+  {
+    "name": { "name": "Languages", "coverImage": "/folder/skills/Languages/languages.png" },
+    "skills": [
+      {
+        "name": "CSS",
+        "image": "/folder/skills/Languages/css.png",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS"
+      },
+      {
+        "name": "HTML",
+        "image": "/folder/skills/Languages/html.png",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTML"
+      },
+      {
+        "name": "Java",
+        "image": "/folder/skills/Languages/java.png",
+        "link": "https://www.java.com/"
+      },
+      {
+        "name": "JavaScript",
+        "image": "/folder/skills/Languages/javascript.png",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+      },
+      {
+        "name": "LaTeX",
+        "image": "/folder/skills/Languages/latex.png",
+        "link": "https://www.latex-project.org/"
+      },
+      {
+        "name": "Python",
+        "image": "/folder/skills/Languages/python.png",
+        "link": "https://www.python.org/"
+      },
+      {
+        "name": "TypeScript",
+        "image": "/folder/skills/Languages/typescript.png",
+        "link": "https://www.typescriptlang.org/"
+      }
+    ]
+  },
+  {
+    "name": { "name": "Tech", "coverImage": "/folder/skills/Tech/tech.png" },
+    "skills": [
+      {
+        "name": "Clerk",
+        "image": "/folder/skills/Tech/clerk.png",
+        "link": "https://clerk.com/"
+      },
+      {
+        "name": "Cypress",
+        "image": "/folder/skills/Tech/cypress.png",
+        "link": "https://www.cypress.io/"
+      },
+      {
+        "name": "ngrok",
+        "image": "/folder/skills/Tech/ngrok.png",
+        "link": "https://ngrok.com/"
+      },
+      {
+        "name": "npm",
+        "image": "/folder/skills/Tech/npm.png",
+        "link": "https://www.npmjs.com/"
+      },
+      {
+        "name": "Postman API",
+        "image": "/folder/skills/Tech/postman-api.png",
+        "link": "https://www.postman.com/"
+      },
+      {
+        "name": "Prisma",
+        "image": "/folder/skills/Tech/prisma.png",
+        "link": "https://www.prisma.io/"
+      },
+      {
+        "name": "Socket.IO",
+        "image": "/folder/skills/Tech/socketio.png",
+        "link": "https://socket.io/"
+      }
+    ]
+  },
+  {
+    "name": {
+      "name": "UI Libraries",
+      "coverImage": "/folder/skills/UI Libraries/ui.png"
+    },
+    "skills": [
+      {
+        "name": "MUI",
+        "image": "/folder/skills/UI Libraries/mui.png",
+        "link": "https://mui.com/"
+      },
+      {
+        "name": "Sass",
+        "image": "/folder/skills/UI Libraries/sass.png",
+        "link": "https://sass-lang.com/"
+      },
+      {
+        "name": "shadcn/ui",
+        "image": "/folder/skills/UI Libraries/shadcn.png",
+        "link": "https://ui.shadcn.com/"
+      },
+      {
+        "name": "Tailwind CSS",
+        "image": "/folder/skills/UI Libraries/tailwind-css.png",
+        "link": "https://tailwindcss.com/"
+      }
+    ]
+  }
+]
