@@ -94,7 +94,7 @@ const LoginPage = ({ animationDirection = "up" }: LoginPageProps) => {
         priority
       />
       <div className="relative z-10 w-full h-[90%] flex flex-col justify-between items-center">
-        <section>
+        <section className="grid place-items-center">
           <div className="font-semibold text-2xl opacity-90">{dateStr}</div>
           <div className="font-semibold text-7xl opacity-90">{timeStr}</div>
         </section>

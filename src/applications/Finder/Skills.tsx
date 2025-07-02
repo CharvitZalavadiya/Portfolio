@@ -133,13 +133,20 @@ export default function Skills() {
           tabIndex={-1}
           onMouseDown={e => e.preventDefault()}
           onClick={() => setClickedFolder(category.name.name)}
-          onDoubleClick={() => setOpenedFolder(category.name.name)}
+          onDoubleClick={() => {
+            setClickedFolder(category.name.name);
+            setOpenedFolder(category.name.name);
+          }}
         >
           <Folder
             name={category.name.name}
             coverImage={category.name.coverImage}
             selected={clickedFolder === category.name.name}
             onSelect={() => setClickedFolder(category.name.name)}
+            onDoubleClick={() => {
+            setClickedFolder(category.name.name);
+            setOpenedFolder(category.name.name);
+          }}
           />
         </div>
       ))}

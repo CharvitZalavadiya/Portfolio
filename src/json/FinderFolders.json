@@ -1,17 +1,17 @@
 {
   "Locations": [
-    { "name": "Macintosh HD", "icon": "/folder/macintoshhd.png" }
+    { "name": "Macintosh HD", "icon": "/finder/macintoshhd.png" }
   ],
   "Favourites": [
-    { "name": "Education", "icon": "/folder/education.png" },
-    { "name": "Skills", "icon": "/folder/skills.png" },
-    { "name": "Experience", "icon": "/folder/experience.png" },
-    { "name": "Projects", "icon": "/folder/projects.png" }
+    { "name": "Education", "icon": "/finder/education.png" },
+    { "name": "Skills", "icon": "/finder/skills.png" },
+    { "name": "Experience", "icon": "/finder/experience.png" },
+    { "name": "Projects", "icon": "/finder/projects.png" }
   ],
   "Tages": [
-    { "name": "Participations", "icon": "/folder/participations.png" },
-    { "name": "Co-Curricular Activites", "icon": "/folder/co-curricular-activites.png" },
-    { "name": "Organizations", "icon": "/folder/organizations.png" },
-    { "name": "Certificates", "icon": "/folder/certificates.png" }
+    { "name": "Participations", "icon": "/finder/participations.png" },
+    { "name": "Co-Curricular Activites", "icon": "/finder/co-curricular-activites.png" },
+    { "name": "Organizations", "icon": "/finder/organizations.png" },
+    { "name": "Certificates", "icon": "/finder/certificates.png" }
   ]
 }

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "SSC",
+    "details": {
+      "passingYear": "2020",
+      "percentage": "86.92%",
+      "place": "Sett R.J.J. High School",
+      "location": "Navsari, Gujarat",
+      "specialization": "Computer, Sanskrit"
+    }
+},
+{
+    "name": "HSC",
+    "details": {
+        "passingYear": "2022",
+        "percentage": "91.00%",
+        "place": "A B Higher Secondary School",
+        "location": "Navsari, Gujarat",
+        "specialization": "Physics, Chemistry, Mathematics"
+    }
+},
+{
+    "name": "B.Tech",
+    "details": {
+        "passingYear": "2026",
+        "percentage": "9.25/10 CGPA",
+        "place": "Pandit Deendayal Energy University",
+        "location": "Gandhinagar, Gujarat",
+        "specialization": "Information and Communication Technology"
+    }
+  }
+]

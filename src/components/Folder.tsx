@@ -25,7 +25,7 @@ const Folder: React.FC<FolderProps> = ({ name, coverImage, selected, onSelect, o
       <div className="relative w-16 h-14 flex items-center justify-center">
         {/* Folder base image */}
         <Image
-          src="/folder/folder.png"
+          src="/finder/folder.png"
           alt="Folder"
           width={64}
           height={56}

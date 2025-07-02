@@ -24,7 +24,7 @@ const File: React.FC<FileProps> = ({ name, coverImage, selected, onSelect, onDou
       <div className="relative w-16 h-14 flex items-center justify-center">
         {/* File base image */}
         <Image
-          src="/folder/file.png"
+          src="/finder/file.png"
           alt="File"
           width={64}
           height={56}
