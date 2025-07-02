@@ -1,53 +1,53 @@
 [
   {
     "name": "Mindmaps",
-    "coverImage": "/projects/portfolio.png",
+    "coverImage": "/projects/mindmaps.png",
     "details": {
-      "startDate": "2024-03-01",
-      "endDate": "2024-04-15",
-      "githubUrl": "https://github.com/username/portfolio",
-      "projectUrl": "https://portfolio.example.com",
+      "startDate": "August 2024",
+      "endDate": "Present",
+      "githubUrl": "https://github.com/CharvitZalavadiya/mm",
+      "projectUrl": "https://mind-maps.vercel.app",
       "points": [
-        "Built a personal portfolio with Next.js and TailwindCSS.",
-        "Implemented dynamic project and blog sections.",
-        "Deployed on Vercel with CI/CD integration."
+        "Built a flowchart builder with 2 node shapes, 6 node colors, and can be search by title or color of flowchart.",
+        "It is a cutting-edge platform that uses AES encryption technique to store data of 35 real users and 5+ active users.",
+        "It allows users to create, manage, and organize tasks with 7 color-coded notes. It also have feature for filtering notes for quick access based on title, color of the notes.",
+        "Ontop of that user can send friend requests to friends on the same platform, and can have a real-time chat where messages are delivered in just 0.5 seconds for seamless communication experience."
       ],
-      "tech": ["Next.js", "React", "TailwindCSS", "Vercel"],
-      "baseImage": "/projects/portfolio_base.png"
+      "tech": ["NextJS", "ExpressJS", "MongoDB", "Clerk", "Socket.io", "XY-Flow"],
+      "baseImage": "/projects/mindmaps_base.png"
     }
   },
   {
-    "name": "Chat App",
-    "coverImage": "/projects/chatapp.png",
+    "name": "HideOn",
+    "coverImage": "/projects/hideon.png",
     "details": {
-      "startDate": "2023-11-01",
-      "endDate": "2024-01-10",
-      "githubUrl": "https://github.com/username/chat-app",
-      "projectUrl": "https://chatapp.example.com",
+      "startDate": "February 2025",
+      "endDate": "April, 2025",
+      "githubUrl": "https://github.com/CharvitZalavadiya/HideOn",
+      "projectUrl": "https://hideon.netlify.app",
       "points": [
-        "Real-time messaging with WebSocket integration.",
-        "User authentication and group chat features.",
+        "Deployed an encryption-decryption website for cipher execution, supporting 13 ciphers including modern techniques.",
+        "Enabled encryption and decryption via console commands, with plans to integrate a GUI for improved usability.",
         "Responsive UI for mobile and desktop."
       ],
-      "tech": ["React", "Node.js", "Socket.io", "MongoDB"],
-      "baseImage": "/projects/chatapp_base.png"
+      "tech": ["ReactJS (Vite)", "CSS", "CryptoJS"],
+      "baseImage": "/projects/hideon_base.png"
     }
   },
   {
-    "name": "E-commerce Platform",
-    "coverImage": "/projects/ecommerce.png",
+    "name": "Browser Start Page",
+    "coverImage": "/projects/google.png",
     "details": {
-      "startDate": "2023-06-01",
-      "endDate": "2023-09-30",
-      "githubUrl": "https://github.com/username/ecommerce-platform",
-      "projectUrl": "https://shop.example.com",
+      "startDate": "March, 2024",
+      "endDate": "May, 2024",
+      "githubUrl": "https://github.com/CharvitZalavadiya/Google",
+      "projectUrl": "https://googlecz.netlify.app",
       "points": [
-        "Developed product listing, cart, and checkout flows.",
-        "Integrated payment gateway and order tracking.",
-        "Admin dashboard for inventory management."
+        "A unique, re-imagined browser startup page made for large screens like laptops & monitors which are 15”+.",
+        "It offers a sleek and focused user experience with an emphasis on SEO, a minimal UI wuth 50% fewer distractions, and smooth navigation upto 30% faster access to content."
       ],
-      "tech": ["Next.js", "Stripe", "MongoDB", "Redux"],
-      "baseImage": "/projects/ecommerce_base.png"
+      "tech": ["ReactJS", "SCSS", "Firebase"],
+      "baseImage": "/projects/google_base.png"
     }
   }
 ]
