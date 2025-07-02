@@ -1,6 +1,8 @@
 {
+  "Locations": [
+    { "name": "Macintosh HD", "icon": "/folder/macintoshhd.png" }
+  ],
   "Favourites": [
-    { "name": "Macintosh HD", "icon": "/folder/macintoshhd.png" },
     { "name": "Education", "icon": "/folder/education.png" },
     { "name": "Skills", "icon": "/folder/skills.png" },
     { "name": "Experience", "icon": "/folder/experience.png" },
