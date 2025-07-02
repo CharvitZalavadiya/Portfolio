@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Rebelminds",
+    "coverImage": "/experience/rebelminds.png",
+    "details": [
+      {
+        "startingDate": "May, 2025",
+        "endingDate": "July, 2025",
+        "role": "Full-Stack Developer Intern",
+        "points": [
+          "Delivered 50+ APIs in 14 days using FastAPI and Express.js, optimizing backend scalability and performance by 22%.",
+          "Integrated FCM technology in the Expo app for seamless real-time notifications, achieving latency as low as 11ms."
+        ],
+        "tech": ["ExpressJS", "Supabase", "Prisma ORM", "ReactJS (Vite)", "Framer Motion", "FastAPI", "Firebase", "React Native (Expo Go)", "Postman", "Ngrok"]
+      }
+    ]
+  }
+]

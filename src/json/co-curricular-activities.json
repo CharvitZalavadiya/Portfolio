@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Technical Paper Presentation",
+    "coverImage": "/activities/paper_presentation.png",
+    "details": {
+      "date": "February 2024",
+      "name": "Innovations in AI",
+      "points": [
+        "Presented research on AI in healthcare.",
+        "Won 2nd prize among 30+ teams."
+      ],
+      "tech": ["Python", "TensorFlow", "PowerPoint"]
+    }
+  },
+  {
+    "name": "Coding Contest Winner",
+    "coverImage": "/activities/coding_contest.png",
+    "details": {
+      "date": "August 2023",
+      "name": "CodeMania 2023",
+      "points": [
+        "Secured 1st place in a 24-hour hackathon.",
+        "Built a real-time chat app with authentication."
+      ],
+      "tech": ["React", "Node.js", "Socket.io"]
+    }
+  },
+  {
+    "name": "Robotics Workshop",
+    "coverImage": "/activities/robotics_workshop.png",
+    "details": {
+      "date": "May 2023",
+      "name": "Robotics for Beginners",
+      "points": [
+        "Built and programmed a line-following robot.",
+        "Collaborated in a team of 5."
+      ],
+      "tech": ["Arduino", "C++", "Sensors"]
+    }
+  }
+]

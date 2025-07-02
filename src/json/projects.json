@@ -1,0 +1,53 @@
+[
+  {
+    "name": "Mindmaps",
+    "coverImage": "/projects/portfolio.png",
+    "details": {
+      "startDate": "2024-03-01",
+      "endDate": "2024-04-15",
+      "githubUrl": "https://github.com/username/portfolio",
+      "projectUrl": "https://portfolio.example.com",
+      "points": [
+        "Built a personal portfolio with Next.js and TailwindCSS.",
+        "Implemented dynamic project and blog sections.",
+        "Deployed on Vercel with CI/CD integration."
+      ],
+      "tech": ["Next.js", "React", "TailwindCSS", "Vercel"],
+      "baseImage": "/projects/portfolio_base.png"
+    }
+  },
+  {
+    "name": "Chat App",
+    "coverImage": "/projects/chatapp.png",
+    "details": {
+      "startDate": "2023-11-01",
+      "endDate": "2024-01-10",
+      "githubUrl": "https://github.com/username/chat-app",
+      "projectUrl": "https://chatapp.example.com",
+      "points": [
+        "Real-time messaging with WebSocket integration.",
+        "User authentication and group chat features.",
+        "Responsive UI for mobile and desktop."
+      ],
+      "tech": ["React", "Node.js", "Socket.io", "MongoDB"],
+      "baseImage": "/projects/chatapp_base.png"
+    }
+  },
+  {
+    "name": "E-commerce Platform",
+    "coverImage": "/projects/ecommerce.png",
+    "details": {
+      "startDate": "2023-06-01",
+      "endDate": "2023-09-30",
+      "githubUrl": "https://github.com/username/ecommerce-platform",
+      "projectUrl": "https://shop.example.com",
+      "points": [
+        "Developed product listing, cart, and checkout flows.",
+        "Integrated payment gateway and order tracking.",
+        "Admin dashboard for inventory management."
+      ],
+      "tech": ["Next.js", "Stripe", "MongoDB", "Redux"],
+      "baseImage": "/projects/ecommerce_base.png"
+    }
+  }
+]

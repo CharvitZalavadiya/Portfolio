@@ -1,0 +1,43 @@
+[
+  {
+    "name": "Smart India Hackathon 2024",
+    "coverImage": "/participations/sih2024.png",
+    "details": {
+      "date": "March 2024",
+      "topic": "AI-powered Traffic Management",
+      "solution": [
+        "Developed a real-time traffic prediction system using machine learning.",
+        "Implemented dashboard for city traffic authorities.",
+        "Integrated Google Maps API for live data feeds."
+      ],
+      "tech": ["Python", "TensorFlow", "React", "Google Maps API"]
+    }
+  },
+  {
+    "name": "CodeFest 2023",
+    "coverImage": "/participations/codefest2023.png",
+    "details": {
+      "date": "September 2023",
+      "topic": "E-commerce Automation",
+      "solution": [
+        "Built a bot for automated order processing.",
+        "Integrated payment gateway simulation.",
+        "Created analytics dashboard for sales trends."
+      ],
+      "tech": ["Node.js", "Express", "MongoDB", "Chart.js"]
+    }
+  },
+  {
+    "name": "Open Source Sprint",
+    "coverImage": "/participations/ossprint.png",
+    "details": {
+      "date": "June 2023",
+      "topic": "Open Source Contribution",
+      "solution": [
+        "Contributed to documentation and bug fixes in major OSS projects.",
+        "Organized local hackathon for onboarding new contributors."
+      ],
+      "tech": ["Markdown", "Git", "GitHub Actions"]
+    }
+  }
+]
