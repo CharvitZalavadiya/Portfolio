@@ -1,42 +1,15 @@
 [
   {
-    "name": "Coding Club",
-    "coverImage": "/organizations/coding_club.png",
+    "name": "Encode",
+    "coverImage": "/organizations/encode.png",
     "details": {
-      "startDate": "August 2022",
-      "endDate": "Present",
+      "startDate": "September 2023",
+      "endDate": "September 2024",
       "position": "Core Team Member",
       "points": [
         "Organized weekly coding contests and workshops.",
         "Mentored 30+ students in DSA and web development.",
         "Coordinated inter-college hackathons."
-      ]
-    }
-  },
-  {
-    "name": "IEEE Student Branch",
-    "coverImage": "/organizations/ieee.png",
-    "details": {
-      "startDate": "January 2023",
-      "endDate": "May 2024",
-      "position": "Event Coordinator",
-      "points": [
-        "Managed technical events and seminars.",
-        "Collaborated with industry experts for guest lectures.",
-        "Increased student participation by 40%."
-      ]
-    }
-  },
-  {
-    "name": "Robotics Society",
-    "coverImage": "/organizations/robotics_society.png",
-    "details": {
-      "startDate": "September 2021",
-      "endDate": "June 2023",
-      "position": "Member",
-      "points": [
-        "Participated in national robotics competitions.",
-        "Assisted in organizing robotics workshops for beginners."
       ]
     }
   }
