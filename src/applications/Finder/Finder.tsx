@@ -1,5 +1,3 @@
-
-
 import Folder from "@/components/Folder";
 import finderFolders from "@/json/FinderFolders.json";
 import FinderSidebar from "./FinderSidebar";
@@ -18,15 +16,26 @@ export default function Finder() {
   const [selected, setSelected] = useState<string>("Macintosh HD");
   const [clickedFolder, setClickedFolder] = useState<string | null>(null);
   const mainAreaRef = useRef<HTMLDivElement>(null);
+  // State for subfolder navigation
+  const [currentSubfolder, setCurrentSubfolder] = useState<string | null>(null);
+  const [navigationHistory, setNavigationHistory] = useState<string[]>([]);
 
+
+  // Reset subfolder state when main folder selection changes
+  useEffect(() => {
+    setCurrentSubfolder(null);
+    setNavigationHistory([]);
+  }, [selected]);
 
   // Folders to show: if Macintosh HD is selected, show all except Macintosh HD; else show only the selected folder
   const foldersToShow = selected === "Macintosh HD" ? otherFolders : otherFolders.filter((item: any) => item.name === selected);
 
-  // Deselect folder if clicking outside the selected folder
+  // Deselect folder if clicking outside the selected folder (only when showing folder grid)
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (!clickedFolder) return;
+      // Don't handle click outside detection if we're showing a folder component (like Skills)
+      if (selected !== "Macintosh HD" || !clickedFolder) return;
+      
       // Find the folder element for the selected folder
       const folderElements = document.querySelectorAll('[data-folder-name]');
       let clickedInside = false;
@@ -44,11 +53,14 @@ export default function Finder() {
     };
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
-  }, [clickedFolder]);
+  }, [clickedFolder, selected]);
 
   // Keyboard navigation for folder selection
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't handle navigation if we're in a subfolder
+      if (currentSubfolder) return;
+      
       if (foldersToShow.length === 0) return;
       const idx = clickedFolder ? foldersToShow.findIndex((f: any) => f.name === clickedFolder) : -1;
       if (e.key === 'ArrowRight') {
@@ -67,30 +79,7 @@ export default function Finder() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [clickedFolder, foldersToShow, setSelected]);
-
-  // Keyboard navigation for folder selection
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (foldersToShow.length === 0) return;
-      const idx = clickedFolder ? foldersToShow.findIndex((f: any) => f.name === clickedFolder) : -1;
-      if (e.key === 'ArrowRight') {
-        let nextIdx = idx + 1;
-        if (nextIdx >= foldersToShow.length) nextIdx = 0;
-        setClickedFolder(foldersToShow[nextIdx].name);
-      } else if (e.key === 'ArrowLeft') {
-        let prevIdx = idx - 1;
-        if (prevIdx < 0) prevIdx = foldersToShow.length - 1;
-        setClickedFolder(foldersToShow[prevIdx].name);
-      } else if (e.key === 'Enter') {
-        if (clickedFolder) {
-          setSelected(clickedFolder);
-        }
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [clickedFolder, foldersToShow, setSelected]);
+  }, [clickedFolder, foldersToShow, setSelected, currentSubfolder]);
 
 
 
@@ -107,7 +96,33 @@ export default function Finder() {
       <div className="flex-1 flex flex-col" ref={mainAreaRef}>
         {/* ApplicationActions bar */}
         <div className="flex items-center bg-gray-500/15 h-10 p-2">
-          <span className="ml-4 font-semibold text-base">{selected}</span>
+          {/* Left chevron for going back */}
+          <button
+            className={`mr-2 px-2 py-1 rounded hover:bg-gray-300/20 text-xs ${
+              currentSubfolder ? 'opacity-100 cursor-pointer' : 'opacity-50 cursor-not-allowed'
+            }`}
+            onClick={() => {
+              if (currentSubfolder) {
+                setCurrentSubfolder(null);
+                setNavigationHistory([]);
+              }
+            }}
+            disabled={!currentSubfolder}
+          >
+            ←
+          </button>
+          
+          {/* Right chevron for going forward (placeholder) */}
+          <button
+            className="mr-2 px-2 py-1 rounded hover:bg-gray-300/20 text-xs opacity-50 cursor-not-allowed"
+            disabled={true}
+          >
+            →
+          </button>
+          
+          <span className="ml-4 font-semibold text-base">
+            {currentSubfolder ? `${selected} > ${currentSubfolder}` : selected}
+          </span>
         </div>
         {/* Folders/content area */}
         <div className="flex-1 p-4 bg-gray-500/20">
@@ -121,7 +136,21 @@ export default function Finder() {
                 const fileName = selected.replace(/[^a-zA-Z0-9]/g, "");
                 // eslint-disable-next-line @typescript-eslint/no-var-requires
                 const FolderComponent = require(`./${selected}`).default;
-                return <FolderComponent />;
+                
+                // Pass navigation props to folder components that support subfolder navigation
+                const navigationProps = {
+                  currentSubfolder,
+                  onNavigateToSubfolder: (subfolderName: string) => {
+                    setCurrentSubfolder(subfolderName);
+                    setNavigationHistory([...navigationHistory, subfolderName]);
+                  },
+                  onNavigateBack: () => {
+                    setCurrentSubfolder(null);
+                    setNavigationHistory([]);
+                  }
+                };
+                
+                return <FolderComponent {...navigationProps} />;
               }
             } catch (e) {
               // If not found, fall back to folder grid
