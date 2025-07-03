@@ -1,41 +1,33 @@
 [
   {
-    "name": "Technical Paper Presentation",
-    "coverImage": "/activities/paper_presentation.png",
+    "name": "Antenna",
+    "coverImage": "/activities/antenna.png",
     "details": {
-      "date": "February 2024",
-      "name": "Innovations in AI",
+      "date": "October 2024",
+      "name": "Designing an MLSAVA RF Antenna",
       "points": [
-        "Presented research on AI in healthcare.",
-        "Won 2nd prize among 30+ teams."
+        "Designed Modified Leaf Shaped Antipodal Vivaldi Antenna on Ansys Electronics Desktop.",
+        "98% accurate to original designed antenna.",
+        "20% more band width accepted antenna.",
+        "Resonating at 6 different freqencies.",
+        "Sensitive from 1 GHz to 12.2 GHz frequency."
       ],
-      "tech": ["Python", "TensorFlow", "PowerPoint"]
+      "tech": ["Ansys Electronics Desktop"]
     }
   },
   {
-    "name": "Coding Contest Winner",
-    "coverImage": "/activities/coding_contest.png",
+    "name": "16-bit CPU",
+    "coverImage": "/activities/cpu.png",
     "details": {
-      "date": "August 2023",
-      "name": "CodeMania 2023",
+      "date": "March 2024",
+      "name": "Developing 16-bit CPU with 8-bit ALU",
       "points": [
-        "Secured 1st place in a 24-hour hackathon.",
-        "Built a real-time chat app with authentication."
+        "Made the 16-bit CPU which can perform all basic cpu operations.",
+        "Added 8-bit ALU system in CPU for mathematical operations.",
+        "Also implemented the program counter for storing the next process's addresses.",
+        "Inspired from microprocessor 8085."
       ],
-      "tech": ["React", "Node.js", "Socket.io"]
-    }
-  },
-  {
-    "name": "Robotics Workshop",
-    "coverImage": "/activities/robotics_workshop.png",
-    "details": {
-      "date": "May 2023",
-      "name": "Robotics for Beginners",
-      "points": [
-        "Built and programmed a line-following robot.",
-        "Collaborated in a team of 5."
-      ],
-      "tech": ["Arduino", "C++", "Sensors"]
+      "tech": ["Logisim"]
     }
   }
 ]

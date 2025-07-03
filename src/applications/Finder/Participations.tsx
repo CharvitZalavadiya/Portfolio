@@ -115,7 +115,7 @@ export default function Participations() {
           >
             <div className="flex flex-col overflow-y-auto" style={{ maxHeight: '70dvh' }}>
               {/* Top Section: Image left, Name & Date right (Experience style) */}
-              <div className="flex flex-row bg-black/10 items-center gap-6 px-6 pt-2 pb-2">
+              <div className="flex flex-row items-center gap-6 px-6 pt-2 pb-2">
                 <img
                   src={popupData.coverImage}
                   alt={popupData.name}
@@ -127,7 +127,7 @@ export default function Participations() {
                 </div>
               </div>
               {/* Bottom Section: Topic, Solution, Tech */}
-              <div className="flex flex-col gap-4 px-6 py-6 bg-black/10 rounded-b-xl">
+              <div className="flex flex-col gap-4 px-6 py-6 rounded-b-xl">
                 {/* Topic */}
                 {popupData.details.topic && (
                   <div>
