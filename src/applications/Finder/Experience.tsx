@@ -109,7 +109,7 @@ export default function Experience() {
           }}
         >
           <div
-            className="bg-gray-100/10 rounded-xl p-6 relative shadow-lg w-fit h-fit max-w-[45dvw] max-h-[65dvh] overflow-y-auto"
+            className="bg-gray-100/10 rounded-xl p-6 relative shadow-lg w-fit h-fit max-w-[45dvw] max-h-[65dvh] overflow-y-auto backdrop-blur-2xl"
             onClick={e => e.stopPropagation()}
           >
             {Array.isArray(popupData.details) && popupData.details.map((detail: any, idx: number) => (

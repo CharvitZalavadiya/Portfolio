@@ -109,7 +109,7 @@ export default function Projects() {
           }}
         >
           <div
-            className="bg-gray-100/10 rounded-xl p-0 relative shadow-lg w-fit h-fit max-w-[45dvw] max-h-[65dvh] overflow-y-auto"
+            className="bg-gray-100/10 rounded-xl p-0 relative shadow-lg w-fit h-fit max-w-[45dvw] max-h-[65dvh] overflow-y-auto backdrop-blur-2xl"
             onClick={e => e.stopPropagation()}
           >
             {popupData.details && (
