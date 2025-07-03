@@ -1,18 +1,22 @@
 [
   {
-    "name": "AWS Certified Cloud Practitioner",
-    "coverImage": "/certificates/aws_cloud.png"
+    "name": "Introduction to Web Development",
+    "issuer": "IBM",
+    "coverImage": "/certificates/ibm.png"
   },
   {
-    "name": "Google Data Analytics Professional Certificate",
-    "coverImage": "/certificates/google_data_analytics.png"
+    "name": "NASA Gallactic Problem Solvers",
+    "issuer": "NASA SAC Hackathon",
+    "coverImage": "/certificates/nasa.png"
   },
   {
-    "name": "Microsoft Azure Fundamentals",
-    "coverImage": "/certificates/azure_fundamentals.png"
+    "name": "HackOut 2023",
+    "issuer": "Synapse, DA-IICT",
+    "coverImage": "/certificates/hackout.png"
   },
   {
-    "name": "Coursera Machine Learning",
-    "coverImage": "/certificates/coursera_ml.png"
+    "name": "Devtown",
+    "issuer": "Devtown",
+    "coverImage": "/certificates/devtown.png"
   }
 ]
