@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Wifi, Search, SlidersHorizontal, BatteryIcon, BatteryChargingIcon } from "lucide-react";
+import { Wifi, Search, SlidersHorizontal, BatteryIcon } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -77,17 +77,7 @@ const logoPopupConfig = {
           </span>
         </div>
       ),
-    },
-    {
-      key: "battery",
-      label: "Battery",
-      render: (battery: number) => (
-        <div className="flex items-center gap-2 w-full text-xs">
-          <BatteryIcon className="w-4 h-4" />
-          <span>{battery}%</span>
-        </div>
-      ),
-    },
+    }
   ],
   partTwo: [
     {
@@ -103,9 +93,9 @@ const logoPopupConfig = {
       key: "restart",
       label: "Restart...",
       onClick: (closePopup: () => void) => {
-        localStorage.setItem("loggedin", "false");
-        window.dispatchEvent(new Event("logout"));
         closePopup();
+        // Trigger boot animation
+        window.dispatchEvent(new Event("triggerBootAnimation"));
       },
     },
     {
@@ -113,7 +103,7 @@ const logoPopupConfig = {
       label: "Shut Down...",
       onClick: (closePopup: () => void) => {
         localStorage.setItem("loggedin", "false");
-        window.dispatchEvent(new Event("logout"));
+        window.dispatchEvent(new Event("triggerShutdown"));
         closePopup();
       },
     },
@@ -131,7 +121,16 @@ const StatusBar = ({ forceVisible }: StatusBarProps) => {
     battery !== null
       ? {
           key: "battery",
-          icon: charging ? BatteryChargingIcon : BatteryIcon,
+          icon: (props: { className?: string }) => (
+            <Image
+              src={charging ? "/batteryCharging.png" : "/battery.png"}
+              alt={charging ? "Battery Charging" : "Battery"}
+              width={20}
+              height={20}
+              className={props.className || "w-5 h-5"}
+              style={{ display: 'inline-block', verticalAlign: 'middle' }}
+            />
+          ),
           tooltip: `Battery: ${battery}% ${charging ? "(Charging)" : ""}`,
           className: "w-5 h-5 text-white",
           show: () => true,
@@ -260,7 +259,7 @@ const StatusBar = ({ forceVisible }: StatusBarProps) => {
                             key={item.key}
                             className="py-1 px-2 flex items-center justify-between"
                           >
-                            {item.render(battery ?? 0)}
+                            {item.render()}
                           </div>
                         );
                       })}

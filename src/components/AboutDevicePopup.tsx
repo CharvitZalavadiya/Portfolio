@@ -25,7 +25,7 @@ const AboutDevicePopup = ({ onClose }: AboutDevicePopupProps) => {
     >
       <div
         ref={popupRef}
-        className="bg-gray-100/10 backdrop-blur-[2px] rounded-2xl p-1 max-h-[85vh] max-w-[40vw] w-full flex flex-col items-center animate-fade-in"
+        className="bg-gray-100/10 backdrop-blur-[2px] rounded-2xl p-1 max-h-[80vh] max-w-[40vw] w-full flex flex-col items-center animate-fade-in"
         onMouseDown={e => e.stopPropagation()}
       >
         <div className="w-full rounded-2xl overflow-hidden">
