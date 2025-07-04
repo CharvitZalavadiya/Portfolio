@@ -210,6 +210,22 @@ const StatusBar = ({ application, forceVisible }: StatusBarProps) => {
       ? { transform: 'translateY(-100%)', transition: 'transform 0.3s cubic-bezier(0.33,1,0.68,1)' }
       : { transform: 'translateY(0)', transition: 'transform 0.3s cubic-bezier(0.33,1,0.68,1)' };
 
+  // Get the name of the topmost app from localStorage, fallback to Finder
+  const [topApp, setTopApp] = useState<string>("Finder");
+  useEffect(() => {
+    const getTopApp = () => {
+      let arr: string[] = [];
+      try {
+        arr = JSON.parse(localStorage.getItem("currentApplication") || "[]");
+        if (!Array.isArray(arr)) arr = [];
+      } catch {}
+      setTopApp(arr[0] || "Finder");
+    };
+    getTopApp();
+    window.addEventListener("applicationChange", getTopApp);
+    return () => window.removeEventListener("applicationChange", getTopApp);
+  }, []);
+
   return (
     <TooltipProvider>
       <div className="w-full flex items-center justify-between px-4 py-1 bg-black/60 backdrop-blur-[2px] text-gray-100 text-sm fixed top-0 left-0 z-50 select-none transition-transform duration-300" style={barStyle}>
@@ -283,7 +299,7 @@ const StatusBar = ({ application, forceVisible }: StatusBarProps) => {
                   key={item.key}
                   className="hover:opacity-80 cursor-pointer font-semibold text-white"
                 >
-                  {application}
+                  {topApp}
                 </li>
               );
             }
