@@ -74,7 +74,7 @@ export default function ApplicationCard({
   }, [app, onMaximizedChange]);
 
   const AppComponent = appMap[app] || null;
-  if (!AppComponent) return null;
+
 
   const handleMaximize = () => {
     setMaximized((m) => !m);
@@ -131,6 +131,11 @@ export default function ApplicationCard({
     setDragStart({ x: e.clientX, y: e.clientY });
     e.preventDefault();
   };
+
+  if (!AppComponent) {
+    // Always call hooks before any return!
+    return null;
+  }
 
   return (
     <>
