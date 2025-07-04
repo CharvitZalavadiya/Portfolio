@@ -166,15 +166,29 @@ const Dock = ({ setApplication, forceVisible }: DockProps) => {
               } catch {
                 minArr = [];
               }
-              // If app is minimized, move to current and remove from minimized
+              // If app is minimized, restore it
               if (minArr.includes(app.name)) {
                 minArr = minArr.filter((a) => a !== app.name);
                 if (!arr.includes(app.name)) arr.unshift(app.name);
-              } else {
-                // Normal open: move to front of current
-                arr = arr.filter((a) => a !== app.name);
-                arr.unshift(app.name);
+                // Remove from minimized, add to current
+                localStorage.setItem("currentApplication", JSON.stringify(arr));
+                localStorage.setItem("minimizedApplication", JSON.stringify(minArr));
+                window.dispatchEvent(new Event("applicationChange"));
+                return;
               }
+              // If app is already the frontmost in currentApplication, minimize it
+              if (arr.length > 0 && arr[0] === app.name) {
+                // Remove from current, add to minimized
+                arr = arr.filter((a) => a !== app.name);
+                if (!minArr.includes(app.name)) minArr.unshift(app.name);
+                localStorage.setItem("currentApplication", JSON.stringify(arr));
+                localStorage.setItem("minimizedApplication", JSON.stringify(minArr));
+                window.dispatchEvent(new Event("applicationChange"));
+                return;
+              }
+              // Normal open: move to front of current
+              arr = arr.filter((a) => a !== app.name);
+              arr.unshift(app.name);
               // Ensure app is not in both arrays
               minArr = minArr.filter((a) => a !== app.name);
               localStorage.setItem("currentApplication", JSON.stringify(arr));

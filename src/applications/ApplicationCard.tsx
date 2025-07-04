@@ -88,6 +88,50 @@ export default function ApplicationCard({
   // Always ensure maximized app is above Dock and StatusBar
   const computedZ = maximized ? 99999 : zIndex;
 
+  // Drag-to-move state
+  const [dragging, setDragging] = useState(false);
+  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
+  const [windowPos, setWindowPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const windowRef = useRef<HTMLDivElement>(null);
+  const dragAreaRef = useRef<HTMLDivElement>(null);
+
+  // Reset position when maximized
+  useEffect(() => {
+    if (maximized) {
+      setWindowPos({ x: 0, y: 0 });
+    }
+  }, [maximized]);
+
+  // Mouse event handlers
+  useEffect(() => {
+    if (!dragging) return;
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!dragStart) return;
+      setWindowPos((prev) => ({
+        x: prev.x + e.movementX,
+        y: prev.y + e.movementY,
+      }));
+    };
+    const handleMouseUp = () => {
+      setDragging(false);
+      setDragStart(null);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [dragging, dragStart]);
+
+  // Drag on first click, always show grab cursor on drag area
+  const handleDragAreaMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (maximized) return;
+    setDragging(true);
+    setDragStart({ x: e.clientX, y: e.clientY });
+    e.preventDefault();
+  };
+
   return (
     <>
       <style jsx>{`
@@ -157,14 +201,23 @@ export default function ApplicationCard({
         }
       `}</style>
       <div
+        ref={windowRef}
         className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/20 backdrop-blur-2xl rounded-2xl shadow-2xl flex items-start justify-center ${opened && !closing ? 'app-open' : ''} ${closing ? 'app-close' : ''}`}
         style={{
           width: maximized ? "99dvw" : "80dvw",
           height: maximized ? "99dvh" : "80dvh",
           zIndex: computedZ,
+          cursor: dragging ? 'grabbing' : undefined,
+          left: maximized ? '50%' : `calc(50% + ${windowPos.x}px)`,
+          top: maximized ? '50%' : `calc(50% + ${windowPos.y}px)`,
         }}
       >
-        <div className="absolute left-4 top-3 z-10">
+        <div
+          ref={dragAreaRef}
+          className="absolute z-10 w-full h-[40px] cursor-grab"
+          onMouseDown={handleDragAreaMouseDown}
+          style={{ userSelect: 'none', cursor: dragging ? 'grabbing' : 'grab' }}
+        >
           <ApplicationActions
             app={app}
             onMaximize={handleMaximize}
