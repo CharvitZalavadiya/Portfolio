@@ -4,6 +4,7 @@ import FinderSidebar from "./FinderSidebar";
 // Remove static imports for dynamic folder rendering
 // Dynamically import all folder UIs as needed
 import { useState, useRef, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Finder() {
   // Find all folder items, and the Macintosh HD item
@@ -98,7 +99,7 @@ export default function Finder() {
         <div className="flex items-center bg-gray-500/15 h-10 p-2">
           {/* Left chevron for going back */}
           <button
-            className={`mr-2 px-2 py-1 rounded hover:bg-gray-300/20 text-xs ${
+            className={`mr-2 p-1 rounded hover:bg-gray-300/20 text-xs ${
               currentSubfolder ? 'opacity-100 cursor-pointer' : 'opacity-50 cursor-not-allowed'
             }`}
             onClick={() => {
@@ -109,15 +110,15 @@ export default function Finder() {
             }}
             disabled={!currentSubfolder}
           >
-            ←
+            <ChevronLeft />
           </button>
           
           {/* Right chevron for going forward (placeholder) */}
           <button
-            className="mr-2 px-2 py-1 rounded hover:bg-gray-300/20 text-xs opacity-50 cursor-not-allowed"
+            className="mr-2 p-1 rounded hover:bg-gray-300/20 text-xs opacity-50 cursor-not-allowed"
             disabled={true}
           >
-            →
+            <ChevronRight />
           </button>
           
           <span className="ml-4 font-semibold text-base">
