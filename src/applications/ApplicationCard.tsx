@@ -30,6 +30,7 @@ export default function ApplicationCard({
   const [maximized, setMaximized] = useState(false);
   const [opened, setOpened] = useState(false);
   const [closing, setClosing] = useState(false);
+  const [minimizing, setMinimizing] = useState(false);
   const prevMaximized = useRef(maximized);
   
   useEffect(() => {
@@ -73,16 +74,47 @@ export default function ApplicationCard({
     return () => window.removeEventListener('appCloseWithAnim', handleClose as EventListener);
   }, [app, onMaximizedChange]);
 
+  // For minimize animation, listen for a custom event
+  useEffect(() => {
+    const handleMinimizeAnim = (e: CustomEvent) => {
+      if (e.detail && e.detail.app === app) {
+        setMinimizing(true);
+        setTimeout(() => {
+          // After animation, minimize the app
+          let arr: string[] = [];
+          let minArr: string[] = [];
+          try {
+            arr = JSON.parse(localStorage.getItem("currentApplication") || "[]");
+            if (!Array.isArray(arr)) arr = [];
+          } catch {
+            arr = [];
+          }
+          try {
+            minArr = JSON.parse(localStorage.getItem("minimizedApplication") || "[]");
+            if (!Array.isArray(minArr)) minArr = [];
+          } catch {
+            minArr = [];
+          }
+          arr = arr.filter((a) => a !== app);
+          if (!minArr.includes(app)) minArr.unshift(app);
+          localStorage.setItem("currentApplication", JSON.stringify(arr));
+          localStorage.setItem("minimizedApplication", JSON.stringify(minArr));
+          window.dispatchEvent(new Event("applicationChange"));
+          setMinimizing(false);
+          // Exit maximized mode on minimize
+          if (onMaximizedChange) onMaximizedChange(false);
+        }, 350);
+      }
+    };
+    window.addEventListener('appMinimizeWithAnim', handleMinimizeAnim as EventListener);
+    return () => window.removeEventListener('appMinimizeWithAnim', handleMinimizeAnim as EventListener);
+  }, [app, onMaximizedChange]);
+
   const AppComponent = appMap[app] || null;
 
 
   const handleMaximize = () => {
     setMaximized((m) => !m);
-  };
-
-  // Minimize handler: exit maximized mode if minimized
-  const handleMinimize = () => {
-    if (maximized && onMaximizedChange) onMaximizedChange(false);
   };
 
   // Always ensure maximized app is above Dock and StatusBar
@@ -205,7 +237,7 @@ export default function ApplicationCard({
       `}</style>
       <div
         ref={windowRef}
-        className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/20 backdrop-blur-2xl rounded-2xl shadow-2xl flex items-start justify-center ${opened && !closing ? 'app-open' : ''} ${closing ? 'app-close' : ''}`}
+        className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/20 backdrop-blur-2xl rounded-2xl shadow-2xl flex items-start justify-center ${opened && !closing && !minimizing ? 'app-open' : ''} ${closing || minimizing ? 'app-close' : ''}`}
         style={{
           width: maximized ? "99dvw" : "80dvw",
           height: maximized ? "99dvh" : "80dvh",
@@ -226,7 +258,7 @@ export default function ApplicationCard({
             app={app}
             onMaximize={handleMaximize}
             onCloseWithAnim={() => window.dispatchEvent(new CustomEvent('appCloseWithAnim', { detail: { app } }))}
-            onMinimize={handleMinimize}
+            onMinimize={() => window.dispatchEvent(new CustomEvent('appMinimizeWithAnim', { detail: { app } }))}
           />
         </div>
         <div className="flex-1 flex items-center justify-center w-full h-full">
