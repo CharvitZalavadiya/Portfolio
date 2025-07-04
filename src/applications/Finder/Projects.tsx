@@ -1,6 +1,7 @@
 import File from "@/components/File";
 import projectsData from "@/json/projects.json";
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 export default function Projects() {
   const [clicked, setClicked] = useState<string | null>(null);
@@ -50,7 +51,7 @@ export default function Projects() {
         return;
       }
       const idx = clicked
-        ? projectsData.findIndex((item: any) => item.name === clicked)
+        ? projectsData.findIndex((item: { name: string }) => item.name === clicked)
         : -1;
       if (e.key === "ArrowRight") {
         let nextIdx = idx + 1;
@@ -71,13 +72,13 @@ export default function Projects() {
     };
     window.addEventListener("keydown", handleKeyDown, true);
     return () => window.removeEventListener("keydown", handleKeyDown, true);
-  }, [clicked, popup, projectsData]);
+  }, [clicked, popup]);
 
-  const popupData = projectsData.find((item: any) => item.name === popup);
+  const popupData = projectsData.find((item: { name: string }) => item.name === popup);
 
   return (
     <div className="flex flex-wrap gap-6" ref={mainAreaRef}>
-      {projectsData.map((item: any) => (
+      {projectsData.map((item: { name: string; coverImage: string }) => (
         <div
           key={item.name}
           data-file-name={item.name}
@@ -116,9 +117,11 @@ export default function Projects() {
               <div className="flex flex-col">
                 {/* Top Section: Base Image, Gradient, Name, Dates */}
                 <div className="relative w-full h-48 rounded-t-xl overflow-hidden">
-                  <img
+                  <Image
                     src={popupData.details.baseImage || popupData.coverImage}
                     alt={popupData.name}
+                    width={500}
+                    height={200}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />

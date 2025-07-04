@@ -1,7 +1,7 @@
 import File from "@/components/File";
 import activitiesData from "@/json/co-curricular-activities.json";
-
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 export default function CoCurricularActivites() {
   const [clicked, setClicked] = useState<string | null>(null);
@@ -51,7 +51,7 @@ export default function CoCurricularActivites() {
         return;
       }
       const idx = clicked
-        ? activitiesData.findIndex((item: any) => item.name === clicked)
+        ? activitiesData.findIndex((item: { name: string }) => item.name === clicked)
         : -1;
       if (e.key === "ArrowRight") {
         let nextIdx = idx + 1;
@@ -72,13 +72,13 @@ export default function CoCurricularActivites() {
     };
     window.addEventListener("keydown", handleKeyDown, true);
     return () => window.removeEventListener("keydown", handleKeyDown, true);
-  }, [clicked, popup, activitiesData]);
+  }, [clicked, popup]);
 
-  const popupData = activitiesData.find((item: any) => item.name === popup);
+  const popupData = activitiesData.find((item: { name: string }) => item.name === popup);
 
   return (
     <div className="flex flex-wrap gap-6" ref={mainAreaRef}>
-      {activitiesData.map((item: any) => (
+      {activitiesData.map((item: { name: string; coverImage: string }) => (
         <div
           key={item.name}
           data-file-name={item.name}
@@ -117,9 +117,11 @@ export default function CoCurricularActivites() {
             <div className="flex flex-col overflow-y-auto" style={{ maxHeight: '70dvh' }}>
               {/* Top Section: Image left, Name & Date right (Experience style) */}
               <div className="flex flex-row items-center gap-6 px-6 pt-6 pb-2">
-                <img
+                <Image
                   src={popupData.coverImage}
                   alt={popupData.name}
+                  width={80}
+                  height={80}
                   className="w-20 h-20 object-cover rounded-full border-2 border-gray-100/50"
                 />
                 <div className="flex flex-col">

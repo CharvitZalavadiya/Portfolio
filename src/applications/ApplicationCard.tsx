@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import ApplicationActions from "./applicationActions";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, ComponentType } from "react";
 
 declare global {
   interface Window {
@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-const appMap: Record<string, any> = {
+const appMap: Record<string, ComponentType> = {
   Finder: dynamic(() => import("./Finder/Finder"), { ssr: false }),
   GitHub: dynamic(() => import("./GitHub/GitHub"), { ssr: false }),
   LinkedIn: dynamic(() => import("./LinkedIn/LinkedIn"), { ssr: false }),
@@ -28,7 +28,10 @@ export default function ApplicationCard({
   onMaximizedChange?: (isMax: boolean) => void;
 }) {
   const [maximized, setMaximized] = useState(false);
+  const [opened, setOpened] = useState(false);
+  const [closing, setClosing] = useState(false);
   const prevMaximized = useRef(maximized);
+  
   useEffect(() => {
     if (onMaximizedChange && prevMaximized.current !== maximized) {
       onMaximizedChange(maximized);
@@ -40,28 +43,11 @@ export default function ApplicationCard({
     }
   }, [maximized, onMaximizedChange]);
 
-  const AppComponent = appMap[app] || null;
-  if (!AppComponent) return null;
-
-  const handleMaximize = () => {
-    setMaximized((m) => !m);
-  };
-
-  // Minimize handler: exit maximized mode if minimized
-  const handleMinimize = () => {
-    if (maximized && onMaximizedChange) onMaximizedChange(false);
-  };
-
-  // Always ensure maximized app is above Dock and StatusBar
-  const computedZ = maximized ? 99999 : zIndex;
-
-  const [opened, setOpened] = useState(false);
   useEffect(() => {
     setTimeout(() => setOpened(true), 10);
   }, []);
 
   // For closing animation, listen for a custom event
-  const [closing, setClosing] = useState(false);
   useEffect(() => {
     const handleClose = (e: CustomEvent) => {
       if (e.detail && e.detail.app === app) {
@@ -80,12 +66,27 @@ export default function ApplicationCard({
           window.dispatchEvent(new Event("applicationChange"));
           // Exit maximized mode on close
           if (onMaximizedChange) onMaximizedChange(false);
-        }, 400);
+        }, 500);
       }
     };
     window.addEventListener('appCloseWithAnim', handleClose as EventListener);
     return () => window.removeEventListener('appCloseWithAnim', handleClose as EventListener);
   }, [app, onMaximizedChange]);
+
+  const AppComponent = appMap[app] || null;
+  if (!AppComponent) return null;
+
+  const handleMaximize = () => {
+    setMaximized((m) => !m);
+  };
+
+  // Minimize handler: exit maximized mode if minimized
+  const handleMinimize = () => {
+    if (maximized && onMaximizedChange) onMaximizedChange(false);
+  };
+
+  // Always ensure maximized app is above Dock and StatusBar
+  const computedZ = maximized ? 99999 : zIndex;
 
   return (
     <>

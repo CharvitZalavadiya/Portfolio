@@ -74,7 +74,6 @@ const Dock = ({ setApplication, forceVisible }: DockProps) => {
   }, []);
 
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-  const [mouseX, setMouseX] = useState<number | null>(null);
   const dockRef = useRef<HTMLDivElement>(null);
 
   // Enhanced hover: smoothly interpolate hover between icons when in the gap
@@ -83,7 +82,6 @@ const Dock = ({ setApplication, forceVisible }: DockProps) => {
     const handleMove = (e: MouseEvent) => {
       const rect = dockRef.current!.getBoundingClientRect();
       const x = e.clientX - rect.left;
-      setMouseX(x);
       // Find the closest app center
       let minDist = Infinity;
       let idx = null;
@@ -99,7 +97,6 @@ const Dock = ({ setApplication, forceVisible }: DockProps) => {
     };
     const handleLeave = () => {
       setHoveredIdx(null);
-      setMouseX(null);
     };
     const node = dockRef.current;
     node.addEventListener('mousemove', handleMove);

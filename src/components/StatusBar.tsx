@@ -215,7 +215,7 @@ const StatusBar = ({ application, forceVisible }: StatusBarProps) => {
       <div className="w-full flex items-center justify-between px-4 py-1 bg-black/60 backdrop-blur-[2px] text-gray-100 text-sm fixed top-0 left-0 z-50 select-none transition-transform duration-300" style={barStyle}>
         {/* Left Menu */}
         <ul className="flex gap-5 relative">
-          {leftMenu.map((item, idx) => {
+          {leftMenu.map((item) => {
             if (item.type === "logo") {
               return (
                 <li key="logo" className="relative">

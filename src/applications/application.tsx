@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
+import { ComponentType } from "react";
 
-const appMap: Record<string, any> = {
+const appMap: Record<string, ComponentType> = {
   Finder: dynamic(() => import("./Finder/Finder"), { ssr: false }),
   GitHub: dynamic(() => import("./GitHub/GitHub"), { ssr: false }),
   LinkedIn: dynamic(() => import("./LinkedIn/LinkedIn"), { ssr: false }),

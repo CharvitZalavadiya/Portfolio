@@ -51,7 +51,7 @@ export default function Education() {
         return;
       }
       const idx = clicked
-        ? educationData.findIndex((item: any) => item.name === clicked)
+        ? educationData.findIndex((item: { name: string }) => item.name === clicked)
         : -1;
       if (e.key === "ArrowRight") {
         let nextIdx = idx + 1;
@@ -72,14 +72,14 @@ export default function Education() {
     };
     window.addEventListener("keydown", handleKeyDown, true);
     return () => window.removeEventListener("keydown", handleKeyDown, true);
-  }, [clicked, popup, educationData]);
+  }, [clicked, popup]);
 
   // Popup content
-  const popupData = educationData.find((item: any) => item.name === popup);
+  const popupData = educationData.find((item: { name: string }) => item.name === popup);
 
   return (
     <div className="flex flex-wrap gap-6" ref={mainAreaRef}>
-      {educationData.map((item: any) => (
+      {educationData.map((item: { name: string; details: { passingYear: string; percentage: string; institution: string; location: string; specialization: string } }) => (
         <div
           key={item.name}
           data-file-name={item.name}

@@ -9,8 +9,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export default function Finder() {
   // Find all folder items, and the Macintosh HD item
   const allFolders = Object.values(finderFolders).flat();
-  const macHD = allFolders.find((item: any) => item.name === "Macintosh HD");
-  const otherFolders = allFolders.filter((item: any) => item.name !== "Macintosh HD");
+  const otherFolders = allFolders.filter((item: { name: string }) => item.name !== "Macintosh HD");
 
 
   // State: selected folder, default to Macintosh HD
@@ -29,7 +28,7 @@ export default function Finder() {
   }, [selected]);
 
   // Folders to show: if Macintosh HD is selected, show all except Macintosh HD; else show only the selected folder
-  const foldersToShow = selected === "Macintosh HD" ? otherFolders : otherFolders.filter((item: any) => item.name === selected);
+  const foldersToShow = selected === "Macintosh HD" ? otherFolders : otherFolders.filter((item: { name: string }) => item.name === selected);
 
   // Deselect folder if clicking outside the selected folder (only when showing folder grid)
   useEffect(() => {
@@ -63,7 +62,7 @@ export default function Finder() {
       if (currentSubfolder) return;
       
       if (foldersToShow.length === 0) return;
-      const idx = clickedFolder ? foldersToShow.findIndex((f: any) => f.name === clickedFolder) : -1;
+      const idx = clickedFolder ? foldersToShow.findIndex((f: { name: string }) => f.name === clickedFolder) : -1;
       if (e.key === 'ArrowRight') {
         let nextIdx = idx + 1;
         if (nextIdx >= foldersToShow.length) nextIdx = 0;
@@ -133,9 +132,8 @@ export default function Finder() {
             // Dynamically import and render the selected folder component if it exists
             try {
               if (selected && selected !== "Macintosh HD") {
-                // Convert folder name to valid import (replace spaces and dashes with nothing)
-                const fileName = selected.replace(/[^a-zA-Z0-9]/g, "");
-                // eslint-disable-next-line @typescript-eslint/no-var-requires
+                // Dynamically import and render the selected folder component if it exists
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
                 const FolderComponent = require(`./${selected}`).default;
                 
                 // Pass navigation props to folder components that support subfolder navigation
@@ -153,12 +151,12 @@ export default function Finder() {
                 
                 return <FolderComponent {...navigationProps} />;
               }
-            } catch (e) {
+            } catch {
               // If not found, fall back to folder grid
             }
             return (
               <div className="flex flex-wrap gap-6">
-                {foldersToShow.map((item: any) => (
+                {foldersToShow.map((item: { name: string; icon: string }) => (
                   <div
                     key={item.name}
                     data-folder-name={item.name}
