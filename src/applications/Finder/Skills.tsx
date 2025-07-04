@@ -61,7 +61,7 @@ export default function Skills({
         }
         return;
       }
-      const idx = clickedFolder ? skillsData.findIndex((cat: any) => cat.name.name === clickedFolder) : -1;
+      const idx = clickedFolder ? skillsData.findIndex((cat: { name: { name: string } }) => cat.name.name === clickedFolder) : -1;
       if (e.key === 'ArrowRight') {
         let nextIdx = idx + 1;
         if (nextIdx >= skillsData.length) nextIdx = 0;
@@ -81,16 +81,16 @@ export default function Skills({
     };
     window.addEventListener('keydown', handleKeyDown, true);
     return () => window.removeEventListener('keydown', handleKeyDown, true);
-  }, [clickedFolder, currentSubfolder, skillsData, onNavigateToSubfolder, onNavigateBack]);
+  }, [clickedFolder, currentSubfolder, onNavigateToSubfolder, onNavigateBack]);
 
   // If a folder is opened (currentSubfolder), show its skills as File components
   if (currentSubfolder) {
-    const folderObj = skillsData.find((cat: any) => cat.name.name === currentSubfolder);
+    const folderObj = skillsData.find((cat: { name: { name: string }; skills: unknown[] }) => cat.name.name === currentSubfolder);
     const files = folderObj?.skills || [];
     return (
       <div ref={mainAreaRef}>
         <div className="flex flex-wrap gap-6">
-          {files.map((file: any) => (
+          {files.map((file: { name: string; coverImage?: string; image?: string; link?: string }) => (
             <div
               key={file.name}
               data-folder-name={currentSubfolder}
@@ -98,7 +98,7 @@ export default function Skills({
             >
               <File
                 name={file.name}
-                coverImage={file.coverImage || file.image}
+                coverImage={file.coverImage || file.image || ""}
                 link={file.link}
               />
             </div>
@@ -111,7 +111,7 @@ export default function Skills({
   // Otherwise, show the folder grid
   return (
     <div className="flex flex-wrap gap-6" ref={mainAreaRef}>
-      {skillsData.map((category: any) => (
+      {skillsData.map((category: { name: { name: string; coverImage: string } }) => (
         <div
           key={category.name.name}
           data-folder-name={category.name.name}

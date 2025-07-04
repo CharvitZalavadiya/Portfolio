@@ -1,6 +1,7 @@
 import File from "@/components/File";
 import certificatesData from "@/json/certificates.json";
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 export default function Certificates() {
   const [clicked, setClicked] = useState<string | null>(null);
@@ -50,7 +51,7 @@ export default function Certificates() {
         return;
       }
       const idx = clicked
-        ? certificatesData.findIndex((item: any) => item.name === clicked)
+        ? certificatesData.findIndex((item: { name: string }) => item.name === clicked)
         : -1;
       if (e.key === "ArrowRight") {
         let nextIdx = idx + 1;
@@ -71,13 +72,13 @@ export default function Certificates() {
     };
     window.addEventListener("keydown", handleKeyDown, true);
     return () => window.removeEventListener("keydown", handleKeyDown, true);
-  }, [clicked, popup, certificatesData]);
+  }, [clicked, popup]);
 
-  const popupData = certificatesData.find((item: any) => item.name === popup);
+  const popupData = certificatesData.find((item: { name: string }) => item.name === popup);
 
   return (
     <div className="flex flex-wrap gap-6 p-4" ref={mainAreaRef}>
-      {certificatesData.map((item: any) => (
+      {certificatesData.map((item: { name: string; coverImage: string }) => (
         <div
           key={item.name}
           data-file-name={item.name}
@@ -114,9 +115,11 @@ export default function Certificates() {
           >
             {/* Full cover image */}
             <div className="relative w-[35dvw] h-fit min-h-[240px] max-h-[60dvh]">
-              <img
+              <Image
                 src={popupData.coverImage}
                 alt={popupData.name}
+                width={500}
+                height={300}
                 className="w-full h-full object-cover"
                 style={{ borderTopLeftRadius: 12, borderTopRightRadius: 12 }}
               />

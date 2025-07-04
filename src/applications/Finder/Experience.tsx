@@ -1,6 +1,7 @@
 import File from "@/components/File";
 import experienceData from "@/json/experience.json";
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 export default function Experience() {
   const [clicked, setClicked] = useState<string | null>(null);
@@ -50,7 +51,7 @@ export default function Experience() {
         return;
       }
       const idx = clicked
-        ? experienceData.findIndex((item: any) => item.name === clicked)
+        ? experienceData.findIndex((item: { name: string }) => item.name === clicked)
         : -1;
       if (e.key === "ArrowRight") {
         let nextIdx = idx + 1;
@@ -71,13 +72,13 @@ export default function Experience() {
     };
     window.addEventListener("keydown", handleKeyDown, true);
     return () => window.removeEventListener("keydown", handleKeyDown, true);
-  }, [clicked, popup, experienceData]);
+  }, [clicked, popup]);
 
-  const popupData = experienceData.find((item: any) => item.name === popup);
+  const popupData = experienceData.find((item: { name: string }) => item.name === popup);
 
   return (
     <div className="flex flex-wrap gap-6" ref={mainAreaRef}>
-      {experienceData.map((item: any) => (
+      {experienceData.map((item: { name: string; coverImage: string }) => (
         <div
           key={item.name}
           data-file-name={item.name}
@@ -112,13 +113,15 @@ export default function Experience() {
             className="bg-gray-100/10 rounded-xl p-6 relative shadow-lg w-fit h-fit max-w-[45dvw] max-h-[65dvh] overflow-y-auto backdrop-blur-2xl"
             onClick={e => e.stopPropagation()}
           >
-            {Array.isArray(popupData.details) && popupData.details.map((detail: any, idx: number) => (
+            {Array.isArray(popupData.details) && popupData.details.map((detail: { startingDate: string; endingDate: string; role: string; points: string[]; tech: string[] }, idx: number) => (
               <div key={idx} className="space-y-4 min-w-[300px]">
                 {/* Row 1: Image and Name/Role */}
                 <div className="flex gap-6 items-center">
-                  <img
+                  <Image
                     src={popupData.coverImage}
                     alt={popupData.name}
+                    width={80}
+                    height={80}
                     className="w-20 h-20 object-contain rounded-lg bg-transparent shadow"
                   />
                   <div className="flex flex-col">
