@@ -120,7 +120,7 @@ const logoPopupConfig = {
   ],
 };
 
-const StatusBar = ({ application, forceVisible }: StatusBarProps) => {
+const StatusBar = ({ forceVisible }: StatusBarProps) => {
   const [dateTime, setDateTime] = useState(getTimeString());
   const [battery, setBattery] = useState<number | null>(null);
   const [charging, setCharging] = useState<boolean>(false);
