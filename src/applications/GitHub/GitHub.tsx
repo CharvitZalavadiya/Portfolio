@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import GithubProfileSidebar from "./GithubProfileSidebar";
+import GithubReadmeData from "./GithubReadmeData";
 
 type GitHubProfile = {
   avatar_url: string;
@@ -62,9 +63,9 @@ export default function GitHub() {
         <div className="h-full min-w-[350px] max-w-[370px] flex" style={{ flex: '0 0 350px' }}>
           <GithubProfileSidebar profile={profile} />
         </div>
-        {/* Right: README Placeholder */}
-        <div className="flex-1 bg-[#161b22] ml-1 rounded-2xl flex items-center justify-center min-h-[400px]">
-          <span className="text-[#c9d1d9] text-2xl opacity-70">readme data</span>
+        {/* Right: README Data */}
+        <div className="flex-1 ml-1 rounded-2xl flex items-center justify-center min-h-[400px] h-full overflow-y-scroll">
+          <GithubReadmeData />
         </div>
       </div>
     </div>
