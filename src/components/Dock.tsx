@@ -26,12 +26,7 @@ const applications = [
     name: "Gmail",
     logo: "/apps/gmail.png",
     label: "Gmail",
-  },
-  {
-    name: "Safari",
-    logo: "/apps/safari.png",
-    label: "Safari",
-  },
+  }
 ];
 
 const Dock = ({ setApplication, forceVisible }: DockProps) => {

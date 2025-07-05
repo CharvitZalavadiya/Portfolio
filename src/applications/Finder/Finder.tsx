@@ -84,16 +84,16 @@ export default function Finder() {
 
 
   return (
-    <div className="flex h-full w-full backdrop-blur-xl">
+    <div className="flex h-full w-full bg-transparent -mt-[80px] rounded-2xl">
       {/* Sidebar */}
-      <div className="min-w-[240px] max-w-[250px] mt-8">
+      <div className="min-w-[240px] max-w-[250px] mt-10 overflow-y-auto">
         <FinderSidebar
           selected={selected}
           onSelect={setSelected}
         />
       </div>
       {/* Main content */}
-      <div className="flex-1 flex flex-col" ref={mainAreaRef}>
+      <div className="flex-1 flex flex-col rounded-e-2xl overflow-auto" ref={mainAreaRef}>
         {/* ApplicationActions bar */}
         <div className="flex items-center bg-gray-500/15 h-10 p-2">
           {/* Left chevron for going back */}
@@ -125,7 +125,7 @@ export default function Finder() {
           </span>
         </div>
         {/* Folders/content area */}
-        <div className="flex-1 p-4 bg-gray-500/20">
+        <div className="flex-1 p-4 bg-transparent">
           {(() => {
             // Map folder names to components
             // Only render a special component if it is actually imported and available
