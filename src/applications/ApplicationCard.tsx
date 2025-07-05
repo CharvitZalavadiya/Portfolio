@@ -164,6 +164,41 @@ export default function ApplicationCard({
     e.preventDefault();
   };
 
+  // --- Resizing logic ---
+  const minWidth = 55; // dvw
+  const minHeight = 55; // dvh
+  const [dimensions, setDimensions] = useState({ width: 80, height: 80 }); // in dvw/dvh
+  const [resizing, setResizing] = useState<null | {
+    dir: string;
+    startX: number;
+    startY: number;
+    startW: number;
+    startH: number;
+  }>(null);
+
+  // Mouse move handler for resizing
+  useEffect(() => {
+    if (!resizing) return;
+    const onMouseMove = (e: MouseEvent) => {
+      const dx = (e.clientX - resizing.startX) * 100 / window.innerWidth;
+      const dy = (e.clientY - resizing.startY) * 100 / window.innerHeight;
+      let newW = resizing.startW;
+      let newH = resizing.startH;
+      if (resizing.dir.includes("e")) newW = Math.max(minWidth, resizing.startW + dx);
+      if (resizing.dir.includes("s")) newH = Math.max(minHeight, resizing.startH + dy);
+      if (resizing.dir.includes("w")) newW = Math.max(minWidth, resizing.startW - dx);
+      if (resizing.dir.includes("n")) newH = Math.max(minHeight, resizing.startH - dy);
+      setDimensions({ width: newW, height: newH });
+    };
+    const onMouseUp = () => setResizing(null);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+  }, [resizing]);
+
   if (!AppComponent) {
     // Always call hooks before any return!
     return null;
@@ -234,13 +269,52 @@ export default function ApplicationCard({
             background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
             filter 0.3s cubic-bezier(0.22, 1, 0.36, 1);
         }
+        .resize-handle-corner {
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          z-index: 20;
+        }
+        .resize-handle-side {
+          position: absolute;
+          z-index: 20;
+          background: transparent;
+        }
+        .resize-handle-side.n, .resize-handle-side.s {
+          left: 16px;
+          right: 16px;
+          height: 10px;
+        }
+        .resize-handle-side.n {
+          top: -5px;
+          cursor: ns-resize;
+        }
+        .resize-handle-side.s {
+          bottom: -5px;
+          cursor: ns-resize;
+        }
+        .resize-handle-side.e, .resize-handle-side.w {
+          top: 16px;
+          bottom: 16px;
+          width: 10px;
+        }
+        .resize-handle-side.e {
+          right: -5px;
+          cursor: ew-resize;
+        }
+        .resize-handle-side.w {
+          left: -5px;
+          cursor: ew-resize;
+        }
       `}</style>
       <div
         ref={windowRef}
         className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/20 backdrop-blur-2xl rounded-2xl shadow-2xl flex items-start justify-center ${opened && !closing && !minimizing ? 'app-open' : ''} ${closing || minimizing ? 'app-close' : ''}`}
         style={{
-          width: maximized ? "99dvw" : "80dvw",
-          height: maximized ? "99dvh" : "80dvh",
+          width: maximized ? "99dvw" : `${dimensions.width}dvw`,
+          height: maximized ? "99dvh" : `${dimensions.height}dvh`,
+          minWidth: maximized ? undefined : "55dvw",
+          minHeight: maximized ? undefined : "55dvh",
           zIndex: computedZ,
           cursor: dragging ? 'grabbing' : undefined,
           left: maximized ? '50%' : `calc(50% + ${windowPos.x}px)`,
@@ -264,6 +338,25 @@ export default function ApplicationCard({
         <div className="flex-1 flex items-center justify-center w-full h-full">
           <AppComponent />
         </div>
+        {/* Resize handles (only in normal mode) */}
+        {!maximized && (
+          <>
+            {/* Corners */}
+            <div className="resize-handle-corner" style={{ top: 0, left: 0, cursor: "nwse-resize" }}
+              onMouseDown={e => { e.preventDefault(); setResizing({ dir: "nw", startX: e.clientX, startY: e.clientY, startW: dimensions.width, startH: dimensions.height }); }} />
+            <div className="resize-handle-corner" style={{ top: 0, right: 0, cursor: "nesw-resize" }}
+              onMouseDown={e => { e.preventDefault(); setResizing({ dir: "ne", startX: e.clientX, startY: e.clientY, startW: dimensions.width, startH: dimensions.height }); }} />
+            <div className="resize-handle-corner" style={{ bottom: 0, left: 0, cursor: "nesw-resize" }}
+              onMouseDown={e => { e.preventDefault(); setResizing({ dir: "sw", startX: e.clientX, startY: e.clientY, startW: dimensions.width, startH: dimensions.height }); }} />
+            <div className="resize-handle-corner" style={{ bottom: 0, right: 0, cursor: "nwse-resize" }}
+              onMouseDown={e => { e.preventDefault(); setResizing({ dir: "se", startX: e.clientX, startY: e.clientY, startW: dimensions.width, startH: dimensions.height }); }} />
+            {/* Sides */}
+            <div className="resize-handle-side n" onMouseDown={e => { e.preventDefault(); setResizing({ dir: "n", startX: e.clientX, startY: e.clientY, startW: dimensions.width, startH: dimensions.height }); }} />
+            <div className="resize-handle-side s" onMouseDown={e => { e.preventDefault(); setResizing({ dir: "s", startX: e.clientX, startY: e.clientY, startW: dimensions.width, startH: dimensions.height }); }} />
+            <div className="resize-handle-side e" onMouseDown={e => { e.preventDefault(); setResizing({ dir: "e", startX: e.clientX, startY: e.clientY, startW: dimensions.width, startH: dimensions.height }); }} />
+            <div className="resize-handle-side w" onMouseDown={e => { e.preventDefault(); setResizing({ dir: "w", startX: e.clientX, startY: e.clientY, startW: dimensions.width, startH: dimensions.height }); }} />
+          </>
+        )}
       </div>
     </>
   );

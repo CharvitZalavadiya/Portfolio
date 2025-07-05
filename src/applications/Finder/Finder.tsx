@@ -86,7 +86,7 @@ export default function Finder() {
   return (
     <div className="flex h-full w-full backdrop-blur-xl">
       {/* Sidebar */}
-      <div className="min-w-[240px] max-w-[250px] mt-8">
+      <div className="min-w-[240px] max-w-[250px] mt-8 mb-4 overflow-y-auto">
         <FinderSidebar
           selected={selected}
           onSelect={setSelected}
