@@ -18,9 +18,17 @@ const AppNameBar: React.FC<AppNameBarProps> = ({ name, logo, copyIcon, redirectI
       });
     }
   };
-
   return (
-    <div className="w-full" style={{ height: 40, background: "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div
+      className="w-full"
+      style={{
+        height: 40,
+        background: "transparent",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <div
         style={{
           height: 30,
@@ -29,23 +37,34 @@ const AppNameBar: React.FC<AppNameBarProps> = ({ name, logo, copyIcon, redirectI
           borderRadius: 10,
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-start",
           fontWeight: 500,
           fontSize: 15,
-          gap: 12,
           paddingLeft: 4,
           paddingRight: 8,
+          minWidth: 0,
         }}
       >
         {logo && (
-          <span style={{ display: 'flex', alignItems: 'center', marginRight: 10, opacity: 0.7 }}>
+          <span style={{ display: 'flex', alignItems: 'center', marginRight: 10, opacity: 0.7, flexShrink: 0 }}>
             <Image src={logo} alt="logo" width={22} height={22} style={{ borderRadius: 6 }} />
           </span>
         )}
-        <span style={{ flex: 1 }} className="text-gray-400">{name}</span>
+        <span
+          style={{
+            flex: 1,
+            minWidth: 0,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            color: '#9ca3af',
+          }}
+          title={name}
+        >
+          {name}
+        </span>
         {copyIcon && (
           <span
-            style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', position: 'relative' }}
+            style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', position: 'relative', marginLeft: 8, flexShrink: 0 }}
             onClick={handleCopy}
             title="Copy"
           >
@@ -72,7 +91,7 @@ const AppNameBar: React.FC<AppNameBarProps> = ({ name, logo, copyIcon, redirectI
           </span>
         )}
         {redirectIcon && (
-          <span style={{ display: 'flex', alignItems: 'center', marginLeft: 10, opacity: 0.7, cursor: 'pointer' }} title="Redirect to app">
+          <span style={{ display: 'flex', alignItems: 'center', marginLeft: 10, opacity: 0.7, cursor: 'pointer', flexShrink: 0 }} title="Redirect to app">
             {redirectIcon}
           </span>
         )}

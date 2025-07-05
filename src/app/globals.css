@@ -2,6 +2,7 @@
 
 :root {
   color: #e2e8f0;
+  scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
