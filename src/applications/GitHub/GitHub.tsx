@@ -1,25 +1,70 @@
+
+import React, { useEffect, useState } from "react";
+import GithubProfileSidebar from "./GithubProfileSidebar";
+
+type GitHubProfile = {
+  avatar_url: string;
+  name: string | null;
+  login: string;
+  bio: string | null;
+  html_url: string;
+  followers: number;
+  following: number;
+  public_repos: number;
+  location?: string;
+  blog?: string;
+  company?: string;
+};
+
 export default function GitHub() {
+  const [profile, setProfile] = useState<GitHubProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("https://api.github.com/users/CharvitZalavadiya")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch profile");
+        return res.json();
+      })
+      .then((data) => {
+        setProfile(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full h-full flex items-center justify-center" style={{ color: '#9ca3af', fontSize: 18 }}>
+        Loading GitHub profile...
+      </div>
+    );
+  }
+
+  if (error || !profile) {
+    return (
+      <div className="w-full h-full flex items-center justify-center" style={{ color: '#ef4444', fontSize: 18, textAlign: 'center', padding: 24 }}>
+        Failed to load GitHub profile.<br />
+        <span style={{ fontSize: 15, opacity: 0.7 }}>{error}</span>
+      </div>
+    );
+  }
+
+  // Two-column layout: left = sidebar, right = readme placeholder
   return (
-    <div className="w-full h-full">
-      <div className="h-full w-full p-0 rounded-lg overflow-hidden flex items-center justify-center" style={{height: '100%', width: '100%'}}>
-        <div style={{textAlign: 'center', color: '#9ca3af', fontSize: 18, padding: 24}}>
-          <div style={{fontWeight: 600, fontSize: 22, marginBottom: 8}}>
-            Charvit Zalavadiya's GitHub
-          </div>
-          <div style={{marginBottom: 16}}>
-            <a
-              href="https://github.com/CharvitZalavadiya"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{color: '#3b82f6', textDecoration: 'underline'}}
-            >
-              github.com/CharvitZalavadiya
-            </a>
-          </div>
-          <div style={{fontSize: 15, opacity: 0.7}}>
-            GitHub does not allow embedding its site in an iframe.<br/>
-            Please click the link above to view the profile.
-          </div>
+    <div className="w-full h-full flex justify-center">
+      <div className="flex flex-row w-full min-h-[400px] min-w-[320px] max-w-[99dvw] items-stretch p-2">
+        {/* Left: Profile Sidebar */}
+        <div className="h-full min-w-[350px] max-w-[370px] flex" style={{ flex: '0 0 350px' }}>
+          <GithubProfileSidebar profile={profile} />
+        </div>
+        {/* Right: README Placeholder */}
+        <div className="flex-1 bg-[#161b22] ml-1 rounded-2xl flex items-center justify-center min-h-[400px]">
+          <span className="text-[#c9d1d9] text-2xl opacity-70">readme data</span>
         </div>
       </div>
     </div>
