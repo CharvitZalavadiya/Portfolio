@@ -1,5 +1,3 @@
-import AppNameBar from "@/components/AppNameBar";
-
 export default function GitHub() {
   return (
     <div style={{ width: '100%' }}>

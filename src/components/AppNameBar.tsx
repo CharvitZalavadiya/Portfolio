@@ -5,15 +5,16 @@ interface AppNameBarProps {
   name: string;
   logo?: string;
   copyIcon?: React.ReactNode;
+  redirectIcon?: React.ReactNode;
 }
 
-const AppNameBar: React.FC<AppNameBarProps> = ({ name, logo, copyIcon }) => {
+const AppNameBar: React.FC<AppNameBarProps> = ({ name, logo, copyIcon, redirectIcon }) => {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
     if (navigator && navigator.clipboard) {
       navigator.clipboard.writeText(name).then(() => {
         setCopied(true);
-        setTimeout(() => setCopied(false), 1000);
+        setTimeout(() => setCopied(false), 1200);
       });
     }
   };
@@ -46,7 +47,7 @@ const AppNameBar: React.FC<AppNameBarProps> = ({ name, logo, copyIcon }) => {
           <span
             style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', position: 'relative' }}
             onClick={handleCopy}
-            title="Copy app name"
+            title="Copy"
           >
             {copyIcon}
             {copied && (
@@ -62,12 +63,17 @@ const AppNameBar: React.FC<AppNameBarProps> = ({ name, logo, copyIcon }) => {
                   whiteSpace: 'nowrap',
                   zIndex: 100,
                   boxShadow: '0 2px 8px #0002',
-                  opacity: 0.7
+                  opacity: 0.7,
                 }}
               >
                 Link Copied !
               </span>
             )}
+          </span>
+        )}
+        {redirectIcon && (
+          <span style={{ display: 'flex', alignItems: 'center', marginLeft: 10, opacity: 0.7, cursor: 'pointer' }} title="Redirect to app">
+            {redirectIcon}
           </span>
         )}
       </div>
