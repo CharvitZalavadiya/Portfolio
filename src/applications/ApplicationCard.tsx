@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic";
 import ApplicationActions from "./applicationActions";
 import { useState, useEffect, useRef, ComponentType } from "react";
+import AppNameBar from "@/components/AppNameBar";
+import { Copy } from 'lucide-react';
 
 declare global {
   interface Window {
@@ -309,7 +311,7 @@ export default function ApplicationCard({
       `}</style>
       <div
         ref={windowRef}
-        className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/20 backdrop-blur-2xl rounded-2xl shadow-2xl flex items-start justify-center ${opened && !closing && !minimizing ? 'app-open' : ''} ${closing || minimizing ? 'app-close' : ''}`}
+        className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/20 backdrop-blur-2xl rounded-2xl shadow-2xl flex flex-col items-stretch justify-start ${opened && !closing && !minimizing ? 'app-open' : ''} ${closing || minimizing ? 'app-close' : ''}`}
         style={{
           width: maximized ? "99dvw" : `${dimensions.width}dvw`,
           height: maximized ? "99dvh" : `${dimensions.height}dvh`,
@@ -322,20 +324,46 @@ export default function ApplicationCard({
         }}
         onMouseDown={handleBringToFront}
       >
-        <div
-          ref={dragAreaRef}
-          className="absolute left-0 top-0 h-[40px]"
-          style={{ width: 240, zIndex: 10, userSelect: 'none', cursor: dragging ? 'grabbing' : 'grab' }}
-          onMouseDown={handleDragAreaMouseDown}
-        >
-          <ApplicationActions
-            app={app}
-            onMaximize={handleMaximize}
-            onCloseWithAnim={() => window.dispatchEvent(new CustomEvent('appCloseWithAnim', { detail: { app } }))}
-            onMinimize={() => window.dispatchEvent(new CustomEvent('appMinimizeWithAnim', { detail: { app } }))}
-          />
+        {/* Top bar: ApplicationActions + AppNameBar (except Finder) */}
+        <div className="flex flex-row items-center w-full" style={{ height: 40 }}>
+          <div
+            ref={dragAreaRef}
+            className="flex-shrink-0 flex items-center h-full"
+            style={{ width: 240, zIndex: 10, userSelect: 'none', cursor: dragging ? 'grabbing' : 'grab' }}
+            onMouseDown={handleDragAreaMouseDown}
+          >
+            <ApplicationActions
+              app={app}
+              onMaximize={handleMaximize}
+              onCloseWithAnim={() => window.dispatchEvent(new CustomEvent('appCloseWithAnim', { detail: { app } }))}
+              onMinimize={() => window.dispatchEvent(new CustomEvent('appMinimizeWithAnim', { detail: { app } }))}
+            />
+          </div>
+          {/* AppNameBar takes the rest of the width, except for Finder */}
+          {app !== "Finder" && (
+            <div className="flex-1 flex items-center h-full pl-2 pr-4">
+              <AppNameBar
+                name={
+                  app === "GitHub" ? "github.com/CharvitZalavadiya" :
+                  app === "LinkedIn" ? "linkedin.com/in/charvitzalavadiya" :
+                  app === "Gmail" ? "charvitzalavadiya@gmail.com" :
+                  app === "Safari" ? "Safari" :
+                  app
+                }
+                logo={
+                  app === "GitHub" ? "/apps/github.png" :
+                  app === "LinkedIn" ? "/apps/linkedin.png" :
+                  app === "Gmail" ? "/apps/gmail.png" :
+                  app === "Safari" ? "/apps/safari.png" :
+                  undefined
+                }
+                copyIcon={<Copy size={18} style={{ cursor: 'pointer', opacity: 0.3 }} />}
+              />
+            </div>
+          )}
         </div>
-        <div className="flex-1 flex items-center justify-center w-full h-full">
+        {/* App content fills the rest of the popup */}
+        <div className="flex-1 flex items-center justify-center w-full h-0 min-h-0">
           <AppComponent />
         </div>
         {/* Resize handles (only in normal mode) */}

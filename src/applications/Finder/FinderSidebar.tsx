@@ -10,7 +10,7 @@ interface FinderSidebarProps {
 
 const FinderSidebar: React.FC<FinderSidebarProps> = ({ selected, onSelect }) => {
   return (
-    <aside className="px-4 pt-2 my-2 border-t border-gray-100/20 h-full">
+    <aside className="px-4 py-2 border-r border-t border-gray-400/10 h-full">
       {Object.entries(finderFolders).map(([section, items]) => (
         <div key={section} className="mb-6">
           <div className="font-bold mb-2 text-base">{section}</div>
