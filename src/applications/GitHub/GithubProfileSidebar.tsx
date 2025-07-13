@@ -32,15 +32,15 @@ const GithubProfileSidebar: React.FC<GithubProfileSidebarProps> = ({
   profile,
 }) => {
   return (
-    <div className="bg-transparent rounded-2xl w-[350px] max-w-[95vw] min-w-[260px]  flex flex-col items-center mx-auto h-full overflow-y-scroll">
+    <div className="bg-transparent rounded-2xl w-[270px] max-w-[95vw] min-w-[120px] flex flex-col items-center mx-auto h-full overflow-y-scroll">
       {/* Avatar */}
-      <div className="w-full flex flex-col items-center mt-6">
-        <div className="w-[220px] h-[220px] rounded-full overflow-hidden border-4 border-[#21262d] mb-3 bg-[#222] flex items-center justify-center">
+      <div className="w-full flex flex-col items-baseline mt-6 pl-7">
+        <div className="w-[120px] h-[120px] rounded-full overflow-hidden border-4 border-[#21262d] mb-3 bg-[#222] flex items-center justify-center">
           <Image
             src={profile.avatar_url || "/default-avatar.png"}
             alt="Avatar"
-            width={220}
-            height={220}
+            width={120}
+            height={120}
             className="w-full h-full object-cover"
             priority
             unoptimized

@@ -57,10 +57,10 @@ export default function GitHub() {
 
   // Two-column layout: left = sidebar, right = readme placeholder
   return (
-    <div className="w-full h-full flex justify-center">
+    <div className="w-full h-full flex justify-center overflow-scroll">
       <div className="flex flex-row w-full min-h-[400px] min-w-[320px] max-w-[99dvw] items-stretch p-2">
         {/* Left: Profile Sidebar */}
-        <div className="h-full min-w-[350px] max-w-[370px] flex" style={{ flex: '0 0 350px' }}>
+        <div className="h-full min-w-[100px] max-w-[270px] flex" style={{ flex: '0 0 270px' }}>
           <GithubProfileSidebar profile={profile} />
         </div>
         {/* Right: README Data */}
