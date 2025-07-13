@@ -250,7 +250,7 @@ const LinkedInData = () => {
                 </a>
               </div>
               <div className="text-sm text-gray-300">
-                Bachelor's degree, Information and Communication Technology
+                Bachelor&apos;s degree, Information and Communication Technology
               </div>
               <div className="text-xs text-gray-400">Oct 2022 - Jul 2026</div>
               <div className="text-xs text-gray-400">Grade: 9.25</div>
