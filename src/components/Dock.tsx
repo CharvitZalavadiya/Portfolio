@@ -140,7 +140,7 @@ const Dock = ({ setApplication, forceVisible }: DockProps) => {
           <span
             key={app.name}
             className={classNames}
-            style={{ position: 'relative', minWidth: 48 }}
+            style={{ position: 'relative', minWidth: 48, padding: 2 }}
             onClick={() => {
               setApplication(app.name);
               let arr: string[] = [];
@@ -204,7 +204,7 @@ const Dock = ({ setApplication, forceVisible }: DockProps) => {
                   position: 'absolute',
                   left: '50%',
                   transform: 'translateX(-50%)',
-                  bottom: -5,
+                  bottom: -6,
                   width: 5,
                   height: 5,
                   borderRadius: '50%',
