@@ -1,3 +1,10 @@
+
+import LinkedInData from "./LinkedInData";
+
 export default function LinkedIn() {
-  return "this is LinkedIn running.";
+  return (
+    <div className="w-full h-full overflow-y-scroll p-3">
+      <LinkedInData />
+    </div>
+  );
 }
