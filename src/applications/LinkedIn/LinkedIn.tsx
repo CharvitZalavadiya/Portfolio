@@ -1,4 +1,3 @@
-
 import LinkedInData from "./LinkedInData";
 
 export default function LinkedIn() {
