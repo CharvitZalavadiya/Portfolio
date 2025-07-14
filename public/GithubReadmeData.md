@@ -83,6 +83,7 @@
     <th>🤖 <b>Other Techs</b></th>
     <td>
       <img src="/finder/skills/Tech/prisma.png" width="40px"/>
+      <img src="/finder/skills/Tech/jwt.png" width="40px"/>
       <img src="/finder/skills/Tech/ngrok.png" width="40px"/>
       <img src="/finder/skills/Tech/socketio.png" width="40px"/>
       <img src="/finder/skills/Tech/postman-api.png" width="40px"/>

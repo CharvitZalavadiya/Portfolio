@@ -238,6 +238,11 @@
         "link": "https://clerk.com/"
       },
       {
+        "name": "JWT",
+        "coverImage": "/finder/skills/Tech/jwt.png",
+        "link": "https://www.jwt.io/"
+      },
+      {
         "name": "Cypress",
         "coverImage": "/finder/skills/Tech/cypress.png",
         "link": "https://www.cypress.io/"
